@@ -109,6 +109,7 @@ class GameViewController: UIViewController{
             if AnswerFrame.frame.contains(sender.view!.center){
                 if sender.view!.tag == 4{
                     performSegue(withIdentifier: "toCorrect", sender: nil)
+                    removeAllImage()
                 }else{
                     firstContact = false
                 }

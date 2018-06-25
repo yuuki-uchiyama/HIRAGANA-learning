@@ -25,7 +25,7 @@ class CMViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @objc func countDown(){
-        if countDownSecond == 0 {
+        if countDownSecond == 1 {
             countDownLabel.text = "OK!!"
             self.timer.invalidate()
             let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toResultSegue))

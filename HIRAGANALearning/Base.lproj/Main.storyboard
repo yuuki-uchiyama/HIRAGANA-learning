@@ -1085,7 +1085,7 @@
                                 <color key="backgroundColor" red="0.57254901960000004" green="0.80000000000000004" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <view alpha="0.84999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a4u-YW-Slj">
-                                <rect key="frame" x="783" y="98" width="241" height="670"/>
+                                <rect key="frame" x="783" y="100" width="241" height="670"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
