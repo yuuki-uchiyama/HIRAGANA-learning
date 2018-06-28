@@ -13,6 +13,7 @@ class GameViewController: UIViewController{
     var image2 = UIImage(named: "2")
     var image3 = UIImage(named: "3")
     var image4 = UIImage(named: "4")
+    var imageArray = [(UIImage)].self
     @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var choicesFrame: UIImageView!
     @IBOutlet weak var AnswerFrame: UIImageView!
@@ -33,64 +34,69 @@ class GameViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setImage()
+        setChoice()
         coverView.isHidden = false
         coverViewButton.setTitle("開く", for: .normal)
     }
     
-    func setImage(){
-       
-        let panGesture4: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-        imageView4 = UIImageView(image: image4)
-        imageView4.tag = 4
-        imageView4.addGestureRecognizer(panGesture4)
-        imageView4.isUserInteractionEnabled = true
-        let panGesture3: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-
-        imageView3 = UIImageView(image: image3)
-        imageView3.tag = 3
-        imageView3.addGestureRecognizer(panGesture3)
-        imageView3.isUserInteractionEnabled = true
-        let panGesture2: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-        imageView2 = UIImageView(image: image2)
-        imageView2.tag = 2
-        imageView2.addGestureRecognizer(panGesture2)
-        imageView2.isUserInteractionEnabled = true
-        let panGesture1: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-        imageView1 = UIImageView(image: image1)
-        imageView1.tag = 1
-        imageView1.addGestureRecognizer(panGesture1)
-        imageView1.isUserInteractionEnabled = true
-        let center = CGPoint(x:choicesFrame.center.x, y:choicesFrame.center.y)
-        let choicesRange = choicesFrame.frame.width
-        if numberOfChoices == 2{
-            imageView4.center = CGPoint(x: center.x - choicesRange/6, y: center.y)
-            imageView3.center = CGPoint(x: center.x + choicesRange/6, y: center.y)
-            self.view.addSubview(imageView4)
-            self.view.addSubview(imageView3)
-        }else if numberOfChoices == 3{
-            imageView4.center = CGPoint(x: center.x - choicesRange/4, y: center.y)
-            imageView3.center = CGPoint(x: center.x, y: center.y)
-            imageView2.center = CGPoint(x: center.x + choicesRange/4, y: center.y)
-            self.view.addSubview(imageView4)
-            self.view.addSubview(imageView3)
-            self.view.addSubview(imageView2)
-        }else if numberOfChoices == 4{
-            imageView4.center = CGPoint(x: center.x - choicesRange*3/10, y: center.y)
-            imageView3.center = CGPoint(x: center.x - choicesRange/10, y: center.y)
-            imageView2.center = CGPoint(x: center.x + choicesRange/10, y: center.y)
-            imageView1.center = CGPoint(x: center.x + choicesRange*3/10, y:center.y)
-            self.view.addSubview(imageView4)
-            self.view.addSubview(imageView3)
-            self.view.addSubview(imageView2)
-            self.view.addSubview(imageView1)
+    func setChoice(){
+        let center = choicesFrame.frame.origin.y + choicesFrame.frame.height/2
+        
+        for i in 1 ... numberOfChoices{
+            let image = UIImage(named: "\(arc4random_uniform(3))")
+            let imageView = UIImageView(image: image)
+            imageView.tag = i
+            let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
+            imageView.addGestureRecognizer(panGesture)
+            imageView.isUserInteractionEnabled = true
+            let imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 1)
+            imageView.center = CGPoint(x: choicesFrame.frame.origin.x + imageInterval * CGFloat(i), y: center)
+            self.view.addSubview(imageView)
         }
+        
+//        let panGesture3: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
+//        imageView3 = UIImageView(image: image3)
+//        imageView3.tag = 3
+//        imageView3.addGestureRecognizer(panGesture3)
+//        imageView3.isUserInteractionEnabled = true
+//        let panGesture2: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
+//        imageView2 = UIImageView(image: image2)
+//        imageView2.tag = 2
+//        imageView2.addGestureRecognizer(panGesture2)
+//        imageView2.isUserInteractionEnabled = true
+//        let panGesture1: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
+//        imageView1 = UIImageView(image: image1)
+//        imageView1.tag = 1
+//        imageView1.addGestureRecognizer(panGesture1)
+//        imageView1.isUserInteractionEnabled = true
+//
+//        if numberOfChoices == 2{
+//            imageView4.center = CGPoint(x: center.x - choicesRange/6, y: center.y)
+//            imageView3.center = CGPoint(x: center.x + choicesRange/6, y: center.y)
+//            self.view.addSubview(imageView4)
+//            self.view.addSubview(imageView3)
+//        }else if numberOfChoices == 3{
+//            imageView4.center = CGPoint(x: center.x - choicesRange/4, y: center.y)
+//            imageView3.center = CGPoint(x: center.x, y: center.y)
+//            imageView2.center = CGPoint(x: center.x + choicesRange/4, y: center.y)
+//            self.view.addSubview(imageView4)
+//            self.view.addSubview(imageView3)
+//            self.view.addSubview(imageView2)
+//        }else if numberOfChoices == 4{
+//            imageView4.center = CGPoint(x: center.x - choicesRange*3/10, y: center.y)
+//            imageView3.center = CGPoint(x: center.x - choicesRange/10, y: center.y)
+//            imageView2.center = CGPoint(x: center.x + choicesRange/10, y: center.y)
+//            imageView1.center = CGPoint(x: center.x + choicesRange*3/10, y:center.y)
+//            self.view.addSubview(imageView4)
+//            self.view.addSubview(imageView3)
+//            self.view.addSubview(imageView2)
+//            self.view.addSubview(imageView1)
+//        }
     }
     
     @objc func imageMoved(sender: UIPanGestureRecognizer) {
@@ -134,7 +140,7 @@ class GameViewController: UIViewController{
         if numberOfChoices > 2 {
             numberOfChoices -= 1
             removeAllImage()
-            setImage()
+            setChoice()
         }
     }
     
@@ -142,7 +148,7 @@ class GameViewController: UIViewController{
         if numberOfChoices < 4 {
             numberOfChoices += 1
             removeAllImage()
-            setImage()
+            setChoice()
         }
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BEBF8549EAC23C87C786386 /* Pods_HIRAGANALearning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7CC050A4BF0B31F5275E2D3 /* Pods_HIRAGANALearning.framework */; };
 		81D5F03F20DBA4E500D7A2D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F03E20DBA4E500D7A2D3 /* AppDelegate.swift */; };
 		81D5F04120DBA4E500D7A2D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F04020DBA4E500D7A2D3 /* ViewController.swift */; };
 		81D5F04420DBA4E500D7A2D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81D5F04220DBA4E500D7A2D3 /* Main.storyboard */; };
@@ -24,9 +25,13 @@
 		81D5F06520DC297B00D7A2D3 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F06420DC297B00D7A2D3 /* CardViewController.swift */; };
 		81D5F06920DC29AB00D7A2D3 /* CreateCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F06820DC29AB00D7A2D3 /* CreateCardViewController.swift */; };
 		81D5F06B20DC29D200D7A2D3 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F06A20DC29D200D7A2D3 /* EditCardViewController.swift */; };
+		81DF5DAD20E4BC490099ED11 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF5DAC20E4BC490099ED11 /* Card.swift */; };
+		81DF5DB020E4DA040099ED11 /* cardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF5DAE20E4DA040099ED11 /* cardCollectionViewCell.swift */; };
+		81DF5DB120E4DA040099ED11 /* cardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81DF5DAF20E4DA040099ED11 /* cardCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		691E1CBDFA31E25B65A869C4 /* Pods-HIRAGANALearning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HIRAGANALearning.release.xcconfig"; path = "Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning.release.xcconfig"; sourceTree = "<group>"; };
 		81D5F03B20DBA4E500D7A2D3 /* HIRAGANALearning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HIRAGANALearning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81D5F03E20DBA4E500D7A2D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81D5F04020DBA4E500D7A2D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +51,11 @@
 		81D5F06420DC297B00D7A2D3 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		81D5F06820DC29AB00D7A2D3 /* CreateCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardViewController.swift; sourceTree = "<group>"; };
 		81D5F06A20DC29D200D7A2D3 /* EditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
+		81DF5DAC20E4BC490099ED11 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		81DF5DAE20E4DA040099ED11 /* cardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardCollectionViewCell.swift; sourceTree = "<group>"; };
+		81DF5DAF20E4DA040099ED11 /* cardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cardCollectionViewCell.xib; sourceTree = "<group>"; };
+		A272590817139141B70430FE /* Pods-HIRAGANALearning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HIRAGANALearning.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning.debug.xcconfig"; sourceTree = "<group>"; };
+		C7CC050A4BF0B31F5275E2D3 /* Pods_HIRAGANALearning.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HIRAGANALearning.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BEBF8549EAC23C87C786386 /* Pods_HIRAGANALearning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +75,8 @@
 			children = (
 				81D5F03D20DBA4E500D7A2D3 /* HIRAGANALearning */,
 				81D5F03C20DBA4E500D7A2D3 /* Products */,
+				A38B0C74D61BFC7FA2040792 /* Pods */,
+				AB2F193365CB420691D82F92 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,12 +105,32 @@
 				81D5F06420DC297B00D7A2D3 /* CardViewController.swift */,
 				81D5F06820DC29AB00D7A2D3 /* CreateCardViewController.swift */,
 				81D5F06A20DC29D200D7A2D3 /* EditCardViewController.swift */,
+				81DF5DAC20E4BC490099ED11 /* Card.swift */,
 				81D5F04220DBA4E500D7A2D3 /* Main.storyboard */,
+				81DF5DAE20E4DA040099ED11 /* cardCollectionViewCell.swift */,
+				81DF5DAF20E4DA040099ED11 /* cardCollectionViewCell.xib */,
 				81D5F04520DBA4E800D7A2D3 /* Assets.xcassets */,
 				81D5F04720DBA4E800D7A2D3 /* LaunchScreen.storyboard */,
 				81D5F04A20DBA4E800D7A2D3 /* Info.plist */,
 			);
 			path = HIRAGANALearning;
+			sourceTree = "<group>";
+		};
+		A38B0C74D61BFC7FA2040792 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A272590817139141B70430FE /* Pods-HIRAGANALearning.debug.xcconfig */,
+				691E1CBDFA31E25B65A869C4 /* Pods-HIRAGANALearning.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AB2F193365CB420691D82F92 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C7CC050A4BF0B31F5275E2D3 /* Pods_HIRAGANALearning.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,9 +140,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81D5F04D20DBA4E800D7A2D3 /* Build configuration list for PBXNativeTarget "HIRAGANALearning" */;
 			buildPhases = (
+				1124BE681F162A4D32C10CFA /* [CP] Check Pods Manifest.lock */,
 				81D5F03720DBA4E500D7A2D3 /* Sources */,
 				81D5F03820DBA4E500D7A2D3 /* Frameworks */,
 				81D5F03920DBA4E500D7A2D3 /* Resources */,
+				BCE6A30874E918AA7DF477D7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,6 +193,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81DF5DB120E4DA040099ED11 /* cardCollectionViewCell.xib in Resources */,
 				81D5F04920DBA4E800D7A2D3 /* LaunchScreen.storyboard in Resources */,
 				81D5F04620DBA4E800D7A2D3 /* Assets.xcassets in Resources */,
 				81D5F04420DBA4E500D7A2D3 /* Main.storyboard in Resources */,
@@ -165,6 +201,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1124BE681F162A4D32C10CFA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HIRAGANALearning-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCE6A30874E918AA7DF477D7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		81D5F03720DBA4E500D7A2D3 /* Sources */ = {
@@ -178,6 +257,8 @@
 				81D5F06B20DC29D200D7A2D3 /* EditCardViewController.swift in Sources */,
 				81D5F05120DBBF0000D7A2D3 /* ChoiceLevelViewController.swift in Sources */,
 				81D5F06920DC29AB00D7A2D3 /* CreateCardViewController.swift in Sources */,
+				81DF5DAD20E4BC490099ED11 /* Card.swift in Sources */,
+				81DF5DB020E4DA040099ED11 /* cardCollectionViewCell.swift in Sources */,
 				81D5F06120DC292C00D7A2D3 /* MultipleSwitchesViewController.swift in Sources */,
 				81D5F05D20DC28D300D7A2D3 /* OperateViewController.swift in Sources */,
 				81D5F03F20DBA4E500D7A2D3 /* AppDelegate.swift in Sources */,
@@ -326,6 +407,7 @@
 		};
 		81D5F04E20DBA4E800D7A2D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A272590817139141B70430FE /* Pods-HIRAGANALearning.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -344,6 +426,7 @@
 		};
 		81D5F04F20DBA4E800D7A2D3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 691E1CBDFA31E25B65A869C4 /* Pods-HIRAGANALearning.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

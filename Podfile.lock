@@ -1,0 +1,26 @@
+PODS:
+  - CropViewController (2.3.6)
+  - Realm (3.5.0):
+    - Realm/Headers (= 3.5.0)
+  - Realm/Headers (3.5.0)
+  - RealmSwift (3.5.0):
+    - Realm (= 3.5.0)
+
+DEPENDENCIES:
+  - CropViewController
+  - RealmSwift (= 3.5.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CropViewController
+    - Realm
+    - RealmSwift
+
+SPEC CHECKSUMS:
+  CropViewController: e6d4bd512d15a1709e9ddf71fe7d98ffd05dda0f
+  Realm: 0378021c424e4e2bd6a0e63b27881e929d9b9ad1
+  RealmSwift: 3322562622fda2ad596985ead4d8d8be30cf838c
+
+PODFILE CHECKSUM: 92fdaff488defa7b51f5d693f200534e3ccd9cc5
+
+COCOAPODS: 1.5.3
