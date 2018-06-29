@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CardViewController: UIViewController {
 
@@ -22,6 +23,18 @@ class CardViewController: UIViewController {
     }
     
     @IBAction func unwindToCard(_ segue:UIStoryboardSegue){
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "newCard"{
+            let createCardViewController: CreateCardViewController = segue.destination as! CreateCardViewController
+            let realm = try! Realm()
+            let card = Card()
+            let cardArray = realm.objects(Card.self)
+            card.id = cardArray.max(ofProperty: "id")! + 1
+            createCardViewController.card = card
+            createCardViewController.newCardBool = true
+        }
     }
 
     /*

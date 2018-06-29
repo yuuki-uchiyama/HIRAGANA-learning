@@ -8,5 +8,6 @@ target 'HIRAGANALearning' do
   # Pods for HIRAGANALearning
   pod 'CropViewController'
   pod 'RealmSwift', '3.5.0'
+  pod 'SVProgressHUD','2.2.5'
 
 end

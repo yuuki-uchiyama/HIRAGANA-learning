@@ -12,7 +12,9 @@ import RealmSwift
 class cardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cardImage: UIImageView!
     @IBOutlet weak var word: UILabel!
-    @IBOutlet weak var originalDeck: UILabel!
+    @IBOutlet weak var originalDeck1: UILabel!
+    @IBOutlet weak var originalDeck2: UILabel!
+    
     
     var cardData: Card!
     
@@ -21,22 +23,36 @@ class cardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        originalDeck.layer.cornerRadius = 10.0
+        originalDeck1.layer.borderColor = UIColor.lightGray.cgColor
+        originalDeck1.layer.borderWidth = 1.0
+        originalDeck1.layer.cornerRadius = 10.0
+        originalDeck1.layer.masksToBounds = true
+        
+        originalDeck2.layer.borderColor = UIColor.lightGray.cgColor
+        originalDeck2.layer.borderWidth = 1.0
+        originalDeck2.layer.cornerRadius = 10.0
+        originalDeck2.layer.masksToBounds = true
+        
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderWidth = 2.0
+        self.layer.cornerRadius = 10.0
+        self.layer.masksToBounds = true
     }
     
     func setCard(){
         cardImage.image = UIImage(data: cardData.image! as Data)
         word.text! = cardData.word
-        if cardData.originalDeck == 0{
-            originalDeck.text = ""
-        }else if cardData.originalDeck == 1{
-            originalDeck.text = "オリジナル　１"
-            originalDeck.backgroundColor = UIColor.red
-        }else if cardData.originalDeck == 2{
-            originalDeck.text = "オリジナル　２"
-            originalDeck.backgroundColor = UIColor.blue
+        if cardData.originalDeck1{
+            originalDeck1.text = "オリジナル　１"
+            originalDeck1.backgroundColor = UIColor.red
+        }else{
+            originalDeck1.text = ""
         }
-
+        if cardData.originalDeck2{
+            originalDeck2.text = "オリジナル　２"
+            originalDeck2.backgroundColor = UIColor.blue
+        }else{
+            originalDeck2.text = ""
+        }
     }
-
 }

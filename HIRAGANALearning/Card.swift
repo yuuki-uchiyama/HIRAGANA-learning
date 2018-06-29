@@ -10,7 +10,9 @@ class Card: Object {
     
     @objc dynamic var group = 0
     
-    @objc dynamic var originalDeck = 0
+    @objc dynamic var originalDeck1 = false
+    
+    @objc dynamic var originalDeck2 = false
     
     @objc dynamic var image: NSData?
     

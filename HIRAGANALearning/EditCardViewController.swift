@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class EditCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class EditCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     
     @IBOutlet weak var cardCollectionView: UICollectionView!
@@ -24,11 +24,22 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
         
+        cardCollectionView.layer.borderColor = UIColor.white.cgColor
+        cardCollectionView.layer.borderWidth = 5.0
+        cardCollectionView.layer.cornerRadius = 10.0
+        cardCollectionView.layer.masksToBounds = true
+        
         let nib = UINib(nibName: "cardCollectionViewCell", bundle: nil)
         cardCollectionView.register(nib, forCellWithReuseIdentifier: "Cell")
-        
+
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        cardArray = realm.objects(Card.self)
+        cardCollectionView.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cardArray.count
     }
@@ -39,8 +50,27 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.setCard()
         
         return cell
-
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let returnSize = CGSize(width: 180, height: 270)
+        return returnSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "editCardSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editCardSegue"{
+            let indexPath: IndexPath = self.cardCollectionView.indexPathsForSelectedItems![0]
+            let createCardViewController: CreateCardViewController = segue.destination as! CreateCardViewController
+            createCardViewController.card = self.cardArray[indexPath.row]
+            createCardViewController.newCardBool = false
+        }
+    }
+    
     @IBAction func allCard(_ sender: Any) {
         cardArray = realm.objects(Card.self)
         cardCollectionView.reloadData()
@@ -66,11 +96,11 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
         cardCollectionView.reloadData()
     }
     @IBAction func originalDeck1(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("originalDeck == 1")
+        cardArray = realm.objects(Card.self).filter("originalDeck1 == true")
         cardCollectionView.reloadData()
     }
     @IBAction func originalDeck2(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("originalDeck == 2")
+        cardArray = realm.objects(Card.self).filter("originalDeck2 == true")
         cardCollectionView.reloadData()
     }
     
@@ -81,6 +111,8 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func unwindToEdit(_ segue: UIStoryboardSegue) {
+    }
 
     /*
     // MARK: - Navigation

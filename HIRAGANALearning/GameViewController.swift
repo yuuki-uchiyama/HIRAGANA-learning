@@ -29,6 +29,8 @@ class GameViewController: UIViewController{
     var numberOfChoices = 4
     var firstContact = true
     var problemNumber = 0
+    var choiceIdArray: [Int] = []
+
     
     var locationBeforeTouch = CGRect()
     
@@ -39,24 +41,36 @@ class GameViewController: UIViewController{
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setChoice()
         coverView.isHidden = false
         coverViewButton.setTitle("開く", for: .normal)
+    }
+    
+    func cardSelect(){
+        let choiceId:Int = Int(arc4random_uniform(4))
+        if choiceIdArray.contains(choiceId){
+            cardSelect()
+        }else{
+            choiceIdArray.append(choiceId)
+            }
     }
     
     func setChoice(){
         let center = choicesFrame.frame.origin.y + choicesFrame.frame.height/2
         
         for i in 1 ... numberOfChoices{
-            let image = UIImage(named: "\(arc4random_uniform(3))")
-            let imageView = UIImageView(image: image)
-            imageView.tag = i
-            let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-            imageView.addGestureRecognizer(panGesture)
-            imageView.isUserInteractionEnabled = true
-            let imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 1)
-            imageView.center = CGPoint(x: choicesFrame.frame.origin.x + imageInterval * CGFloat(i), y: center)
+            let ChoiceId:Int = Int(arc4random_uniform(4))
+            if choiceIdArray.contains(ChoiceId){
+                choiceIdArray.append(ChoiceId)
+                let image = UIImage(named: "\(ChoiceId)")
+                let imageView = UIImageView(image: image)
+                imageView.tag = i
+                let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
+                imageView.addGestureRecognizer(panGesture)
+                imageView.isUserInteractionEnabled = true
+                let imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 1)
+                imageView.center = CGPoint(x: choicesFrame.frame.origin.x + imageInterval * CGFloat(i), y: center)
             self.view.addSubview(imageView)
+            }
         }
         
 //        let panGesture3: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
