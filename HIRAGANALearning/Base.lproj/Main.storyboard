@@ -93,7 +93,7 @@
         <scene sceneID="NNO-gH-kfQ">
             <objects>
                 <viewController id="8BM-gt-zBP" customClass="SettingViewController" customModule="HIRAGANALearning" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="PHN-zR-cEH">
+                    <view key="view" contentMode="scaleToFill" id="PHN-zR-cEH">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -613,8 +613,8 @@
                                     <segue destination="nhr-Rf-Ce4" kind="unwind" unwindAction="unwindToHome:" id="eO3-gX-GVd"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ep-Ap-kS5">
-                                <rect key="frame" x="624" y="152" width="400" height="56"/>
+                            <searchBar contentMode="redraw" fixedFrame="YES" prompt="カード検索" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ep-Ap-kS5">
+                                <rect key="frame" x="624" y="133" width="400" height="75"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -709,6 +709,7 @@
                     <connections>
                         <outlet property="cardCollectionView" destination="82b-gY-leZ" id="dfE-S6-6HC"/>
                         <outlet property="cardSearchBar" destination="9ep-Ap-kS5" id="JGc-UA-EGu"/>
+                        <outlet property="searchBar" destination="9ep-Ap-kS5" id="iHs-TO-uge"/>
                         <segue destination="eTK-gK-YsS" kind="show" identifier="editCardSegue" id="i8x-LL-GCB"/>
                     </connections>
                 </viewController>
@@ -1345,6 +1346,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="s2w-NL-OWq"/>
-        <segue reference="3bO-r9-LHQ"/>
+        <segue reference="i8x-LL-GCB"/>
     </inferredMetricsTieBreakers>
 </document>

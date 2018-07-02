@@ -36,7 +36,15 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
             deleteButtonOutlet.setTitle("削除", for: .normal)
             createButtonOutlet.setTitle("修正", for: .normal)
         }
+        
+        addDeck1Outlet.setImage(UIImage(named: "CheckOff"), for: .normal)
+        addDeck1Outlet.setImage(UIImage(named: "CheckOn"), for: .selected)
+        addDeck2Outlet.setImage(UIImage(named: "CheckOff"), for: .normal)
+        addDeck2Outlet.setImage(UIImage(named: "CheckOn"), for: .selected)
+        
         setCard()
+        
+        print("デバッグ：\(card)")
         
 
 
@@ -51,14 +59,10 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
         }
         wordTextField.text = card.word
         if card.originalDeck1{
-            addDeck1Outlet.setImage(UIImage(named: "CheckOn"), for: UIControlState.normal)
-        }else{
-            addDeck1Outlet.setImage(UIImage(named: "CheckOff"), for: UIControlState.normal)
+            addDeck1Outlet.isSelected = true
         }
         if card.originalDeck2{
-            addDeck2Outlet.setImage(UIImage(named: "CheckOn"), for: UIControlState.normal)
-        }else{
-            addDeck2Outlet.setImage(UIImage(named: "CheckOff"), for: UIControlState.normal)
+            addDeck2Outlet.isSelected = true
         }
     }
 
@@ -116,30 +120,26 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func addDeck1(_ sender: Any) {
-        if card.originalDeck1{
-            card.originalDeck1 = false
-            addDeck1Outlet.setImage(UIImage(named: "CheckOff"), for: UIControlState.normal)
+        if addDeck1Outlet.isSelected{
+            addDeck1Outlet.isSelected = false
         }else{
-            card.originalDeck1 = true
-            addDeck1Outlet.setImage(UIImage(named: "CheckOn"), for: UIControlState.normal)
+            addDeck1Outlet.isSelected = true
         }
     }
     
     @IBAction func addDeck2(_ sender: Any) {
-        if card.originalDeck2{
-            card.originalDeck2 = false
-            addDeck2Outlet.setImage(UIImage(named: "CheckOff"), for: UIControlState.normal)
+        if addDeck2Outlet.isSelected{
+            addDeck2Outlet.isSelected = false
         }else{
-            card.originalDeck2 = true
-            addDeck2Outlet.setImage(UIImage(named: "CheckOn"), for: UIControlState.normal)
+            addDeck2Outlet.isSelected = true
         }
     }
     
     @IBAction func deleteButton(_ sender: Any) {
         if newCardBool{
             card.word = ""
-            card.originalDeck1 = false
-            card.originalDeck2 = false
+            addDeck1Outlet.isSelected = false
+            addDeck2Outlet.isSelected = false
             card.image = nil
             setCard()
         }else{
@@ -163,6 +163,8 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     @IBAction func createButton(_ sender: Any) {
         if wordTextField.text == ""{
             SVProgressHUD.showError(withStatus: "ひらがなが入力されていません")
+        }else if (wordTextField.text?.count)! > 10 {
+            SVProgressHUD.showError(withStatus: "文字数が多すぎます")
         }else if imageView.image == nil{
             SVProgressHUD.showError(withStatus: "画像が選択されていません")
         }else{
@@ -171,8 +173,9 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
             if sameCardArray.count == 0{
                 cardRegister()
                 SVProgressHUD.showSuccess(withStatus: "カードを保存しました！")
+                let cardId = card.id + 1
                 card = Card()
-                card.id += 1
+                card.id += cardId
                 setCard()
                 }else{
                 SVProgressHUD.showError(withStatus: "同じひらがなのカードがあります")
@@ -188,15 +191,26 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     func cardRegister(){
         try! realm.write {
             card.word = wordTextField.text!
-            let characterCount = wordTextField.text?.characters.count
+            let characterCount = wordTextField.text?.count
             if characterCount! < 5{
                 card.group = characterCount!
             }else{
                 card.group = 5
             }
             card.image = UIImagePNGRepresentation(imageView.image!)! as NSData
+            if addDeck1Outlet.isSelected{
+                card.originalDeck1 = true
+            }else{
+                card.originalDeck1 = false
+            }
+            if addDeck2Outlet.isSelected{
+                card.originalDeck2 = true
+            }else{
+                card.originalDeck2 = false
+            }
             realm.add(card, update: true)
         }
+        print("デバッグ：\(card)")
     }
         
     override func didReceiveMemoryWarning() {

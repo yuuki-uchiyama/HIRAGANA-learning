@@ -9,20 +9,24 @@
 import UIKit
 import RealmSwift
 
-class EditCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class EditCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UICollectionViewDelegateFlowLayout {
 
     
     @IBOutlet weak var cardCollectionView: UICollectionView!
     @IBOutlet weak var cardSearchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     let realm = try! Realm()
-    var cardArray = try! Realm().objects(Card.self)
+    var allCardArray = try! Realm().objects(Card.self)
+    var searchCardArray = try! Realm().objects(Card.self)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
+        searchBar.delegate = self
         
         cardCollectionView.layer.borderColor = UIColor.white.cgColor
         cardCollectionView.layer.borderWidth = 5.0
@@ -36,17 +40,24 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        cardArray = realm.objects(Card.self)
+        allCardArray = realm.objects(Card.self)
         cardCollectionView.reloadData()
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if allCardArray.filter("word contains \(String(describing: searchBar.text!))") != nil{
+            searchCardArray = allCardArray.filter("word contains \(String(describing: searchBar.text!))")
+        cardCollectionView.reloadData()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cardArray.count
+        return searchCardArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! cardCollectionViewCell
-        cell.cardData = self.cardArray[indexPath.row]
+        cell.cardData = self.searchCardArray[indexPath.row]
         cell.setCard()
         
         return cell
@@ -66,41 +77,41 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
         if segue.identifier == "editCardSegue"{
             let indexPath: IndexPath = self.cardCollectionView.indexPathsForSelectedItems![0]
             let createCardViewController: CreateCardViewController = segue.destination as! CreateCardViewController
-            createCardViewController.card = self.cardArray[indexPath.row]
+            createCardViewController.card = self.searchCardArray[indexPath.row]
             createCardViewController.newCardBool = false
         }
     }
     
     @IBAction func allCard(_ sender: Any) {
-        cardArray = realm.objects(Card.self)
+        allCardArray = realm.objects(Card.self)
         cardCollectionView.reloadData()
     }
     @IBAction func characterCount1(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("group == 1")
+        allCardArray = realm.objects(Card.self).filter("group == 1")
         cardCollectionView.reloadData()
     }
     @IBAction func characterCount2(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("group == 2")
+        allCardArray = realm.objects(Card.self).filter("group == 2")
         cardCollectionView.reloadData()
     }
     @IBAction func charactercount3(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("group == 3")
+        allCardArray = realm.objects(Card.self).filter("group == 3")
         cardCollectionView.reloadData()
     }
     @IBAction func characterCount4(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("group == 4")
+        allCardArray = realm.objects(Card.self).filter("group == 4")
         cardCollectionView.reloadData()
     }
     @IBAction func characterCount5(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("group == 5")
+        allCardArray = realm.objects(Card.self).filter("group == 5")
         cardCollectionView.reloadData()
     }
     @IBAction func originalDeck1(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("originalDeck1 == true")
+        allCardArray = realm.objects(Card.self).filter("originalDeck1 == true")
         cardCollectionView.reloadData()
     }
     @IBAction func originalDeck2(_ sender: Any) {
-        cardArray = realm.objects(Card.self).filter("originalDeck2 == true")
+        allCardArray = realm.objects(Card.self).filter("originalDeck2 == true")
         cardCollectionView.reloadData()
     }
     
