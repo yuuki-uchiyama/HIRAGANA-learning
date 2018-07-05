@@ -28,9 +28,10 @@ class ChoiceLevelViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier != "1"{
         let gameViewController: GameViewController = segue.destination as! GameViewController
         gameViewController.choiceLevel = Int(segue.identifier!)!
-        
+        }
     }
 
     /*

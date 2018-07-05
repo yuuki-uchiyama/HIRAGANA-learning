@@ -70,7 +70,7 @@ class GameViewController: UIViewController{
         let alertController: UIAlertController = UIAlertController(title: "カードの枚数が足りません", message: "カード５枚以上必要です", preferredStyle: .alert)
         let create = UIAlertAction(title: "カードを作る", style: .default, handler:{(action: UIAlertAction!) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.performSegue(withIdentifier: "unwindToCreatCard", sender: nil)
+                self.performSegue(withIdentifier: "unwindToCreateCard", sender: nil)
             }
         })
         let level = UIAlertAction(title: "難易度設定へ", style: .default, handler:{(action: UIAlertAction!) in
