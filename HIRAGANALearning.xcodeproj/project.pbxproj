@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1BEBF8549EAC23C87C786386 /* Pods_HIRAGANALearning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7CC050A4BF0B31F5275E2D3 /* Pods_HIRAGANALearning.framework */; };
+		81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7EF20ED216D00B2894B /* SlideViewController.swift */; };
+		81D5B7F220ED2BC100B2894B /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7F120ED2BC100B2894B /* RightViewController.swift */; };
 		81D5F03F20DBA4E500D7A2D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F03E20DBA4E500D7A2D3 /* AppDelegate.swift */; };
 		81D5F04120DBA4E500D7A2D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F04020DBA4E500D7A2D3 /* ViewController.swift */; };
 		81D5F04420DBA4E500D7A2D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81D5F04220DBA4E500D7A2D3 /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		691E1CBDFA31E25B65A869C4 /* Pods-HIRAGANALearning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HIRAGANALearning.release.xcconfig"; path = "Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning.release.xcconfig"; sourceTree = "<group>"; };
+		81D5B7EF20ED216D00B2894B /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
+		81D5B7F120ED2BC100B2894B /* RightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
 		81D5F03B20DBA4E500D7A2D3 /* HIRAGANALearning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HIRAGANALearning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81D5F03E20DBA4E500D7A2D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81D5F04020DBA4E500D7A2D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +98,9 @@
 				81D5F03E20DBA4E500D7A2D3 /* AppDelegate.swift */,
 				81D5F04020DBA4E500D7A2D3 /* ViewController.swift */,
 				81D5F05020DBBF0000D7A2D3 /* ChoiceLevelViewController.swift */,
+				81D5B7EF20ED216D00B2894B /* SlideViewController.swift */,
 				81D5F05220DBBF1C00D7A2D3 /* GameViewController.swift */,
+				81D5B7F120ED2BC100B2894B /* RightViewController.swift */,
 				81D5F05420DBBF9400D7A2D3 /* CorrectViewController.swift */,
 				81D5F05620DBBFDD00D7A2D3 /* CMViewController.swift */,
 				81D5F05820DBBFE900D7A2D3 /* ResultViewController.swift */,
@@ -232,6 +238,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -239,6 +246,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -265,9 +273,11 @@
 				81D5F05D20DC28D300D7A2D3 /* OperateViewController.swift in Sources */,
 				81D5F03F20DBA4E500D7A2D3 /* AppDelegate.swift in Sources */,
 				81D5F06520DC297B00D7A2D3 /* CardViewController.swift in Sources */,
+				81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */,
 				81D5F05720DBBFDD00D7A2D3 /* CMViewController.swift in Sources */,
 				81D5F06320DC295500D7A2D3 /* SingleSwitchViewController.swift in Sources */,
 				81D5F05520DBBF9400D7A2D3 /* CorrectViewController.swift in Sources */,
+				81D5B7F220ED2BC100B2894B /* RightViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

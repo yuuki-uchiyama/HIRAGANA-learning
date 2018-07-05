@@ -7,46 +7,83 @@
 //
 
 import UIKit
+import RealmSwift
+import SlideMenuControllerSwift
+
 
 class GameViewController: UIViewController{
-    var image1 = UIImage(named: "1")
-    var image2 = UIImage(named: "2")
-    var image3 = UIImage(named: "3")
-    var image4 = UIImage(named: "4")
+
     var imageArray = [(UIImage)].self
-    @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var choicesFrame: UIImageView!
     @IBOutlet weak var AnswerFrame: UIImageView!
-    @IBOutlet weak var coverView: UIView!
-    @IBOutlet weak var coverViewButton: UIButton!
     @IBOutlet weak var AnswerWord: UILabel!
+    var correctImageView : UIImageView!
+    var correctTag = 0
+    var imageViewSize: CGFloat!
     
-    var imageView1 = UIImageView()
-    var imageView2 = UIImageView()
-    var imageView3 = UIImageView()
-    var imageView4 = UIImageView()
-    
-    var numberOfChoices = 4
+    var numberOfChoices = 3
     var firstContact = true
     var problemNumber = 0
+    var choiceId: Int!
     var choiceIdArray: [Int] = []
+    var cardArray = try! Realm().objects(Card.self)
+    var choiceLevel = 0
+    var hintDuration = 20.0
 
     
     var locationBeforeTouch = CGRect()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if 2 ... 5 ~= choiceLevel{
+        cardArray = try! Realm().objects(Card.self).filter("group = \(choiceLevel)")
+        }else if choiceLevel == 6 {
+        cardArray = try! Realm().objects(Card.self).filter("originalDeck1 = true")
+        }else if choiceLevel == 7{
+            cardArray = try! Realm().objects(Card.self).filter("originalDeck2 = true")
+        }else if choiceLevel == 8{
+            cardArray = try! Realm().objects(Card.self)
+        }
+        if cardArray.count < 4{
+            popUp()
+        }
+        imageViewSize = choicesFrame.frame.size.height * 0.8
         // Do any additional setup after loading the view.
     }
+    
+    @objc func popUp(){
+        let alertController: UIAlertController = UIAlertController(title: "カードの枚数が足りません", message: "カードは５枚以上必要です", preferredStyle: .alert)
+        let create = UIAlertAction(title: "カードを作る", style: .default, handler:{(action: UIAlertAction!) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.performSegue(withIdentifier: "unwindToCreatCard", sender: nil)
+            }
+        })
+        let level = UIAlertAction(title: "難易度設定へ", style: .default, handler:{(action: UIAlertAction!) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.performSegue(withIdentifier: "unwindToChoiceLevel", sender: nil)
+            }
+        })
+        
+        alertController.addAction(create)
+        alertController.addAction(level)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        coverView.isHidden = false
-        coverViewButton.setTitle("開く", for: .normal)
+        
+        for _ in 0 ... 3{
+            cardSelect()
+        }
+        setCorrect()
+        setChoice()
+
+
     }
     
     func cardSelect(){
-        let choiceId:Int = Int(arc4random_uniform(4))
+        let choiceId:Int = Int(arc4random_uniform(UInt32(cardArray.count)))
         if choiceIdArray.contains(choiceId){
             cardSelect()
         }else{
@@ -57,68 +94,40 @@ class GameViewController: UIViewController{
     func setChoice(){
         let center = choicesFrame.frame.origin.y + choicesFrame.frame.height/2
         
-        for i in 1 ... numberOfChoices{
-            let ChoiceId:Int = Int(arc4random_uniform(4))
-            if choiceIdArray.contains(ChoiceId){
-                choiceIdArray.append(ChoiceId)
-                let image = UIImage(named: "\(ChoiceId)")
-                let imageView = UIImageView(image: image)
-                imageView.tag = i
-                let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-                imageView.addGestureRecognizer(panGesture)
-                imageView.isUserInteractionEnabled = true
-                let imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 1)
-                imageView.center = CGPoint(x: choicesFrame.frame.origin.x + imageInterval * CGFloat(i), y: center)
+        for i in 0 ... numberOfChoices{
+            let image = UIImage(data: cardArray[choiceIdArray[i]].image! as Data)
+            let imageView = UIImageView(image: image)
+            imageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
+            imageView.tag = i
+            let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
+            imageView.addGestureRecognizer(panGesture)
+            imageView.isUserInteractionEnabled = true
+            let imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 2)
+            imageView.center = CGPoint(x: choicesFrame.frame.origin.x + imageInterval * CGFloat(i + 1), y: center)
             self.view.addSubview(imageView)
-            }
         }
-        
-//        let panGesture3: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-//        imageView3 = UIImageView(image: image3)
-//        imageView3.tag = 3
-//        imageView3.addGestureRecognizer(panGesture3)
-//        imageView3.isUserInteractionEnabled = true
-//        let panGesture2: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-//        imageView2 = UIImageView(image: image2)
-//        imageView2.tag = 2
-//        imageView2.addGestureRecognizer(panGesture2)
-//        imageView2.isUserInteractionEnabled = true
-//        let panGesture1: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-//        imageView1 = UIImageView(image: image1)
-//        imageView1.tag = 1
-//        imageView1.addGestureRecognizer(panGesture1)
-//        imageView1.isUserInteractionEnabled = true
-//
-//        if numberOfChoices == 2{
-//            imageView4.center = CGPoint(x: center.x - choicesRange/6, y: center.y)
-//            imageView3.center = CGPoint(x: center.x + choicesRange/6, y: center.y)
-//            self.view.addSubview(imageView4)
-//            self.view.addSubview(imageView3)
-//        }else if numberOfChoices == 3{
-//            imageView4.center = CGPoint(x: center.x - choicesRange/4, y: center.y)
-//            imageView3.center = CGPoint(x: center.x, y: center.y)
-//            imageView2.center = CGPoint(x: center.x + choicesRange/4, y: center.y)
-//            self.view.addSubview(imageView4)
-//            self.view.addSubview(imageView3)
-//            self.view.addSubview(imageView2)
-//        }else if numberOfChoices == 4{
-//            imageView4.center = CGPoint(x: center.x - choicesRange*3/10, y: center.y)
-//            imageView3.center = CGPoint(x: center.x - choicesRange/10, y: center.y)
-//            imageView2.center = CGPoint(x: center.x + choicesRange/10, y: center.y)
-//            imageView1.center = CGPoint(x: center.x + choicesRange*3/10, y:center.y)
-//            self.view.addSubview(imageView4)
-//            self.view.addSubview(imageView3)
-//            self.view.addSubview(imageView2)
-//            self.view.addSubview(imageView1)
-//        }
     }
     
+    func setCorrect(){
+        correctTag = Int(arc4random_uniform(UInt32(numberOfChoices)))
+        let correctImage = UIImage(data: cardArray[choiceIdArray[correctTag]].image! as Data)
+        correctImageView = UIImageView(image: correctImage)
+        correctImageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
+        correctImageView.center = AnswerFrame.center
+        correctImageView.alpha = 0.0
+        UIView.animate(withDuration: hintDuration, delay: 1.0, options: [.curveEaseIn], animations: {
+            self.correctImageView.alpha = 1.0
+        }, completion: nil)
+
+        self.view.addSubview(correctImageView)
+        AnswerWord.text = cardArray[choiceIdArray[correctTag]].word
+    }
+    
+//    ドラッグ移動の機能設定
     @objc func imageMoved(sender: UIPanGestureRecognizer) {
-        //移動開始時の位置を記憶
         if sender.state == .began{
             locationBeforeTouch.origin = sender.view!.frame.origin
         }
-        //移動処理
         let move:CGPoint = sender.translation(in: view)
         sender.view!.center.x += move.x
         sender.view!.center.y += move.y
@@ -127,8 +136,10 @@ class GameViewController: UIViewController{
         
         if sender.state == .ended{
             if AnswerFrame.frame.contains(sender.view!.center){
-                if sender.view!.tag == 4{
+                if sender.view!.tag == correctTag{
                     performSegue(withIdentifier: "toCorrect", sender: nil)
+                    choiceIdArray.removeAll()
+                    correctTag = 0
                     removeAllImage()
                 }else{
                     firstContact = false
@@ -138,38 +149,17 @@ class GameViewController: UIViewController{
         }
     }
 
-
+//設定画面の操作
     @IBAction func handleCoverView(_ sender: Any) {
-        if coverView.isHidden == false{
-            coverView.isHidden = true
-            coverViewButton.setTitle("隠す", for: .normal)
-        }else{
-            coverView.isHidden = false
-            coverViewButton.setTitle("開く", for: .normal)
-        }
-        
+        self.slideMenuController()?.openRight()
     }
     
-    @IBAction func decreaseChoice(_ sender: Any) {
-        if numberOfChoices > 2 {
-            numberOfChoices -= 1
-            removeAllImage()
-            setChoice()
-        }
-    }
-    
-    @IBAction func increaseChoice(_ sender: Any) {
-        if numberOfChoices < 4 {
-            numberOfChoices += 1
-            removeAllImage()
-            setChoice()
-        }
-    }
+
     
     func removeAllImage(){
         let subviews = view.subviews
         for subview in subviews {
-            if subview.tag >= 1{
+            if subview.tag < 100{
             subview.removeFromSuperview()
             }
         }
@@ -179,8 +169,9 @@ class GameViewController: UIViewController{
         if segue.identifier == "toCorrect"{
         let correctViewController:CorrectViewController = segue.destination as! CorrectViewController
         correctViewController.answerWord = AnswerWord.text!
+            correctViewController.correctImage = self.correctImageView.image
         problemNumber += 1
-        correctViewController.questionCount += problemNumber
+
             print("問題数：\(problemNumber)")
         }
     }

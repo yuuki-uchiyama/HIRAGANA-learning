@@ -39,7 +39,6 @@ class CMViewController: UIViewController {
     
     @objc func toResultSegue(){
         performSegue(withIdentifier: "toResult", sender: nil)
-        countDownSecond = 5
     }
 
     override func didReceiveMemoryWarning() {

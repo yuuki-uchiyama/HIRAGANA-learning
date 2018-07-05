@@ -9,5 +9,6 @@ target 'HIRAGANALearning' do
   pod 'CropViewController'
   pod 'RealmSwift', '3.5.0'
   pod 'SVProgressHUD','2.2.5'
+  pod 'SlideMenuControllerSwift'
 
 end

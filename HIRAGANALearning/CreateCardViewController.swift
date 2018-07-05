@@ -218,6 +218,9 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func unwindToCreateCard(_ segue:UIStoryboardSegue){
+    }
+    
 
     /*
     // MARK: - Navigation

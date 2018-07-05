@@ -5,11 +5,13 @@ PODS:
   - Realm/Headers (3.5.0)
   - RealmSwift (3.5.0):
     - Realm (= 3.5.0)
+  - SlideMenuControllerSwift (4.0.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - CropViewController
   - RealmSwift (= 3.5.0)
+  - SlideMenuControllerSwift
   - SVProgressHUD (= 2.2.5)
 
 SPEC REPOS:
@@ -17,14 +19,16 @@ SPEC REPOS:
     - CropViewController
     - Realm
     - RealmSwift
+    - SlideMenuControllerSwift
     - SVProgressHUD
 
 SPEC CHECKSUMS:
   CropViewController: e6d4bd512d15a1709e9ddf71fe7d98ffd05dda0f
   Realm: 0378021c424e4e2bd6a0e63b27881e929d9b9ad1
   RealmSwift: 3322562622fda2ad596985ead4d8d8be30cf838c
+  SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 22b336dfde1406b7082cbb9496b64c590b2ec80a
+PODFILE CHECKSUM: 1736be24f4d312d286f0526d88a19451b4b5542a
 
 COCOAPODS: 1.5.3

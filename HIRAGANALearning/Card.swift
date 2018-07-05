@@ -20,3 +20,12 @@ class Card: Object {
         return "id"
     }
 }
+
+class CardDTO: Object{
+    var id = 0
+    var word = ""
+    var group = 0
+    var originalDeck1 = false
+    var originalDeck2 = false
+    var image: NSData?
+}

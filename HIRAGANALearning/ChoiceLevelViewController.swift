@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ChoiceLevelViewController: UIViewController {
+    
+    let realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,12 @@ class ChoiceLevelViewController: UIViewController {
     }
     
     @IBAction func unwindToChoiceLevel(_ segue:UIStoryboardSegue){
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let gameViewController: GameViewController = segue.destination as! GameViewController
+        gameViewController.choiceLevel = Int(segue.identifier!)!
+        
     }
 
     /*
