@@ -10,10 +10,8 @@ import UIKit
 import RealmSwift
 import SlideMenuControllerSwift
 
+class GameViewController: UIViewController, choicesDelegate{
 
-class GameViewController: UIViewController{
-
-    var imageArray = [(UIImage)].self
     @IBOutlet weak var choicesFrame: UIImageView!
     @IBOutlet weak var AnswerFrame: UIImageView!
     @IBOutlet weak var AnswerWord: UILabel!
@@ -24,17 +22,21 @@ class GameViewController: UIViewController{
     var numberOfChoices = 3
     var firstContact = true
     var problemNumber = 0
+    var collectCount = 0
     var choiceId: Int!
     var choiceIdArray: [Int] = []
     var cardArray = try! Realm().objects(Card.self)
     var choiceLevel = 0
     var hintDuration = 20.0
-
     
     var locationBeforeTouch = CGRect()
     
+    let rightVC = RightViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        rightVC.delegate = self
         
         if 2 ... 5 ~= choiceLevel{
         cardArray = try! Realm().objects(Card.self).filter("group = \(choiceLevel)")
@@ -58,6 +60,7 @@ class GameViewController: UIViewController{
         setCorrect()
         setChoice()
         }
+        firstContact = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,9 +71,11 @@ class GameViewController: UIViewController{
     
     func popUp(){
         let alertController: UIAlertController = UIAlertController(title: "カードの枚数が足りません", message: "カード５枚以上必要です", preferredStyle: .alert)
-        let create = UIAlertAction(title: "カードを作る", style: .default, handler:{(action: UIAlertAction!) in
+        let card = UIAlertAction(title: "カード編集へ", style: .default, handler:{(action: UIAlertAction!) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.performSegue(withIdentifier: "unwindToCreateCard", sender: nil)
+                let storyboard: UIStoryboard = self.storyboard!
+                let Card = storyboard.instantiateViewController(withIdentifier: "Card")
+                self.present(Card, animated: true, completion: nil)
             }
         })
         let level = UIAlertAction(title: "難易度設定へ", style: .default, handler:{(action: UIAlertAction!) in
@@ -78,7 +83,7 @@ class GameViewController: UIViewController{
                 self.performSegue(withIdentifier: "unwindToChoiceLevel", sender: nil)
             }
         })
-        alertController.addAction(create)
+        alertController.addAction(card)
         alertController.addAction(level)
         present(alertController, animated: true, completion: nil)
     }
@@ -138,6 +143,10 @@ class GameViewController: UIViewController{
         if sender.state == .ended{
             if AnswerFrame.frame.contains(sender.view!.center){
                 if sender.view!.tag == correctTag{
+                    if firstContact{
+                        collectCount += 1
+                    }
+                    print(collectCount)
                     performSegue(withIdentifier: "toCorrect", sender: nil)
                     choiceIdArray.removeAll()
                     correctTag = 0
@@ -154,7 +163,8 @@ class GameViewController: UIViewController{
     @IBAction func handleCoverView(_ sender: Any) {
         self.slideMenuController()?.openRight()
     }
-    
+//    デリゲートを作る　→ rightViewにデリゲートを委譲　→ 実行のタイミングや引数を決める
+
 
     
     func removeAllImage(){
@@ -172,9 +182,33 @@ class GameViewController: UIViewController{
         correctViewController.answerWord = AnswerWord.text!
             correctViewController.correctImage = self.correctImageView.image
         problemNumber += 1
-
+            if problemNumber == 10 {
+                correctViewController.toResultBool = true
+                correctViewController.correctCount = collectCount
+            }
             print("問題数：\(problemNumber)")
         }
+    }
+    
+//    choicesDelegateのデリゲートメソッド（rightVCのボタンタップで起動）
+    func decreaseChoices() {
+        if self.numberOfChoices > 0 {
+            self.numberOfChoices -= 1
+            self.removeAllImage()
+            self.setChoice()
+            rightVC.dismiss(animated: true, completion: nil)
+        }
+        print("decrease")
+    }
+    
+    func  increaseChoices() {
+        if self.numberOfChoices < 3 {
+            self.numberOfChoices += 1
+            self.removeAllImage()
+            self.setChoice()
+            rightVC.dismiss(animated: true, completion: nil)
+        }
+        print("increase")
     }
 
     override func didReceiveMemoryWarning() {
@@ -182,16 +216,4 @@ class GameViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

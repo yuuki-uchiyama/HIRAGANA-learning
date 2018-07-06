@@ -376,7 +376,7 @@
         <!--Card View Controller-->
         <scene sceneID="LlA-qC-uVW">
             <objects>
-                <viewController id="Rab-Sm-Nau" customClass="CardViewController" customModule="HIRAGANALearning" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Card" id="Rab-Sm-Nau" customClass="CardViewController" customModule="HIRAGANALearning" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tkp-DW-EmO">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -882,7 +882,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j0o-h9-yUV" kind="show" identifier="6" id="KrC-68-7mY"/>
+                                    <segue destination="TKB-08-yav" kind="show" identifier="6" id="IIB-kG-PDo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTq-VU-71G">
@@ -894,7 +894,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j0o-h9-yUV" kind="show" identifier="7" id="ERd-2H-hvr"/>
+                                    <segue destination="TKB-08-yav" kind="show" identifier="7" id="kUK-tp-iWd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOC-bs-fad">
@@ -906,7 +906,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j0o-h9-yUV" kind="show" identifier="3" id="IPD-ZG-hzd"/>
+                                    <segue destination="TKB-08-yav" kind="show" identifier="3" id="43x-br-prb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3g-k6-rXT">
@@ -918,7 +918,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j0o-h9-yUV" kind="show" identifier="4" id="Lko-HK-kz2"/>
+                                    <segue destination="TKB-08-yav" kind="show" identifier="4" id="xks-un-5GG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgq-97-crw">
@@ -930,7 +930,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j0o-h9-yUV" kind="show" identifier="5" id="Qix-4c-Hzf"/>
+                                    <segue destination="TKB-08-yav" kind="show" identifier="5" id="JTa-fW-r6i"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcK-Zf-85v">
@@ -954,7 +954,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j0o-h9-yUV" kind="show" identifier="2" id="5fP-Wj-oXf"/>
+                                    <segue destination="TKB-08-yav" kind="show" identifier="2" id="gWG-Br-HGh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j4P-tm-HRi">
@@ -989,7 +989,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j0o-h9-yUV" kind="show" identifier="8" id="lhp-5g-zDf"/>
+                                    <segue destination="TKB-08-yav" kind="show" identifier="8" id="6Pf-SA-0Zm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1047,7 +1047,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="にわとり" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJU-zK-FPp">
-                                <rect key="frame" x="312" y="334" width="400" height="100"/>
+                                <rect key="frame" x="20" y="334" width="984" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="100"/>
                                 <nil key="textColor"/>
@@ -1063,12 +1063,13 @@
                         <outlet property="AnswerWord" destination="zJU-zK-FPp" id="HtW-g3-iTP"/>
                         <outlet property="choicesFrame" destination="q4n-66-xgQ" id="49d-sy-oaV"/>
                         <segue destination="CbU-Z0-xgI" kind="show" identifier="toCorrect" id="f60-iL-ces"/>
+                        <segue destination="rcH-ei-eAR" kind="unwind" identifier="unwindToChoiceLevel" unwindAction="unwindToChoiceLevel:" id="CBt-Wg-edm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a9c-1m-j8S" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="rcH-ei-eAR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-835" y="1559"/>
+            <point key="canvasLocation" x="-835.546875" y="1558.59375"/>
         </scene>
         <!--Right View Controller-->
         <scene sceneID="qJK-us-dpl">
@@ -1269,8 +1270,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="◯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bP1-tA-QQ3">
-                                <rect key="frame" x="140" y="162" width="200" height="200"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bP1-tA-QQ3">
+                                <rect key="frame" x="70" y="162" width="270" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="196"/>
                                 <nil key="textColor"/>
@@ -1336,7 +1337,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pJK-Gu-Yi1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="XFc-c2-uY5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-519" y="3623"/>
+            <point key="canvasLocation" x="-519.140625" y="3622.65625"/>
         </scene>
     </scenes>
     <resources>
@@ -1350,7 +1351,7 @@
         <image name="tap" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Lko-HK-kz2"/>
-        <segue reference="i8x-LL-GCB"/>
+        <segue reference="xks-un-5GG"/>
+        <segue reference="3bO-r9-LHQ"/>
     </inferredMetricsTieBreakers>
 </document>

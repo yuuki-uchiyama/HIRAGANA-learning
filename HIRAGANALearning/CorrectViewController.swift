@@ -17,7 +17,7 @@ class CorrectViewController: UIViewController {
     var answerWord :String = ""
     var characterCount = 0
     var readCount = 0
-    var questionCount = 0
+    var toResultBool = false
     var correctCount = 0
 
     
@@ -46,7 +46,7 @@ class CorrectViewController: UIViewController {
     
     @objc func readingCharacter(){
         if readCount == characterCount{
-            if questionCount == 10{
+            if toResultBool{
                 performSegue(withIdentifier: "toCM", sender: nil)
             }else{
             self.dismiss(animated: true, completion: nil)

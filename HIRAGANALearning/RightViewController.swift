@@ -8,11 +8,14 @@
 
 import UIKit
 
-class RightViewController: UIViewController {
-    var numberOfChoices = 0
-    
-    let gameViewController:GameViewController = GameViewController()
+protocol choicesDelegate {
+    func decreaseChoices()
+    func increaseChoices()
+}
 
+class RightViewController: UIViewController {
+    var delegate: choicesDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,19 +28,11 @@ class RightViewController: UIViewController {
     }
     
     @IBAction func decreaseChoice(_ sender: Any) {
-        if gameViewController.numberOfChoices > 2 {
-            gameViewController.numberOfChoices -= 1
-            gameViewController.removeAllImage()
-            gameViewController.setChoice()
-        }
+        self.delegate?.decreaseChoices()
     }
     
     @IBAction func increaseChoice(_ sender: Any) {
-        if gameViewController.numberOfChoices < 4 {
-            gameViewController.numberOfChoices += 1
-            gameViewController.removeAllImage()
-            gameViewController.setChoice()
-        }
+        self.delegate?.increaseChoices()
     }
     
 

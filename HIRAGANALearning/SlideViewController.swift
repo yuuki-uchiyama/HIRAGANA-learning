@@ -13,6 +13,8 @@ class SlideViewController: SlideMenuController {
     
     var gameView:GameViewController!
     
+    var choiceLevel = 0
+    
     override func awakeFromNib() {
         gameView = storyboard?.instantiateViewController(withIdentifier: "Main") as! GameViewController
         let rightVC = storyboard?.instantiateViewController(withIdentifier: "Right")
