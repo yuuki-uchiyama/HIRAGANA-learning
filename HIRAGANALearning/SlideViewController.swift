@@ -9,18 +9,21 @@
 import UIKit
 import SlideMenuControllerSwift
 
-class SlideViewController: SlideMenuController {
+class SlideViewController: SlideMenuController, SlideMenuControllerDelegate {
     
-    var gameView:GameViewController!
+    var gameView = GameViewController()
+    var rightView = RightViewController()
     
     var choiceLevel = 0
     
     override func awakeFromNib() {
         gameView = storyboard?.instantiateViewController(withIdentifier: "Main") as! GameViewController
-        let rightVC = storyboard?.instantiateViewController(withIdentifier: "Right")
+        rightView = storyboard?.instantiateViewController(withIdentifier: "Right") as! RightViewController
+        
+        rightView.delegate = gameView
 
         mainViewController = gameView
-        rightViewController = rightVC
+        rightViewController = rightView
         SlideMenuOptions.panGesturesEnabled = false
         SlideMenuOptions.contentViewDrag = false
         SlideMenuOptions.tapGesturesEnabled = true
@@ -28,7 +31,7 @@ class SlideViewController: SlideMenuController {
         super.awakeFromNib()
         
     }
-    
+
     
 
     override func viewDidLoad() {

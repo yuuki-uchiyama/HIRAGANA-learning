@@ -10,6 +10,8 @@
 		1BEBF8549EAC23C87C786386 /* Pods_HIRAGANALearning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7CC050A4BF0B31F5275E2D3 /* Pods_HIRAGANALearning.framework */; };
 		81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7EF20ED216D00B2894B /* SlideViewController.swift */; };
 		81D5B7F220ED2BC100B2894B /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7F120ED2BC100B2894B /* RightViewController.swift */; };
+		81D5B7F420EF6EEF00B2894B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */; };
+		81D5B7F620F16B0F00B2894B /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7F520F16B0F00B2894B /* UserDefaults.swift */; };
 		81D5F03F20DBA4E500D7A2D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F03E20DBA4E500D7A2D3 /* AppDelegate.swift */; };
 		81D5F04120DBA4E500D7A2D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F04020DBA4E500D7A2D3 /* ViewController.swift */; };
 		81D5F04420DBA4E500D7A2D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81D5F04220DBA4E500D7A2D3 /* Main.storyboard */; };
@@ -36,6 +38,8 @@
 		691E1CBDFA31E25B65A869C4 /* Pods-HIRAGANALearning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HIRAGANALearning.release.xcconfig"; path = "Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning.release.xcconfig"; sourceTree = "<group>"; };
 		81D5B7EF20ED216D00B2894B /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		81D5B7F120ED2BC100B2894B /* RightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
+		81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		81D5B7F520F16B0F00B2894B /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		81D5F03B20DBA4E500D7A2D3 /* HIRAGANALearning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HIRAGANALearning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81D5F03E20DBA4E500D7A2D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81D5F04020DBA4E500D7A2D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81D5B7F420EF6EEF00B2894B /* AVFoundation.framework in Frameworks */,
 				1BEBF8549EAC23C87C786386 /* Pods_HIRAGANALearning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,6 +118,7 @@
 				81D5F06A20DC29D200D7A2D3 /* EditCardViewController.swift */,
 				81DF5DAC20E4BC490099ED11 /* Card.swift */,
 				81D5F04220DBA4E500D7A2D3 /* Main.storyboard */,
+				81D5B7F520F16B0F00B2894B /* UserDefaults.swift */,
 				81DF5DAE20E4DA040099ED11 /* cardCollectionViewCell.swift */,
 				81DF5DAF20E4DA040099ED11 /* cardCollectionViewCell.xib */,
 				81D5F04520DBA4E800D7A2D3 /* Assets.xcassets */,
@@ -134,6 +140,7 @@
 		AB2F193365CB420691D82F92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */,
 				C7CC050A4BF0B31F5275E2D3 /* Pods_HIRAGANALearning.framework */,
 			);
 			name = Frameworks;
@@ -261,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81D5F05320DBBF1C00D7A2D3 /* GameViewController.swift in Sources */,
+				81D5B7F620F16B0F00B2894B /* UserDefaults.swift in Sources */,
 				81D5F04120DBA4E500D7A2D3 /* ViewController.swift in Sources */,
 				81D5F05920DBBFE900D7A2D3 /* ResultViewController.swift in Sources */,
 				81D5F05B20DC28AF00D7A2D3 /* SettingViewController.swift in Sources */,

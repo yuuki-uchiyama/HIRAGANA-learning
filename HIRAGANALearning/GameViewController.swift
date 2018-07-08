@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import SlideMenuControllerSwift
+import AVFoundation
 
 class GameViewController: UIViewController, choicesDelegate{
 
@@ -26,19 +27,34 @@ class GameViewController: UIViewController, choicesDelegate{
     var choiceId: Int!
     var choiceIdArray: [Int] = []
     var cardArray = try! Realm().objects(Card.self)
+    var cardArray2 = try! Realm().objects(Card.self).filter("group = 2")
+    var cardArray3 = try! Realm().objects(Card.self).filter("group = 3")
+    var cardArray4 = try! Realm().objects(Card.self).filter("group = 4")
+
+
     var choiceLevel = 0
-    var hintDuration = 20.0
+    var hintDuration = 0.0
     
     var locationBeforeTouch = CGRect()
     
     let rightVC = RightViewController()
     
+    var buttonTapAudioPlayer: AVAudioPlayer!
+    var backAudioPlayer: AVAudioPlayer!
+    var dragBeganAudioPlayer: AVAudioPlayer!
+    var dragEndedAudioPlayer: AVAudioPlayer!
+    
+    var correctAudioPlayer: AVAudioPlayer!
+    
+    var incorrectAudioPlayer: AVAudioPlayer!
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rightVC.delegate = self
-        
-        if 2 ... 5 ~= choiceLevel{
+        if choiceLevel == 1 {
+        cardArray = try! Realm().objects(Card.self).filter("group = 1 or group = 5")
+        }else if 2 ... 5 ~= choiceLevel{
         cardArray = try! Realm().objects(Card.self).filter("group = \(choiceLevel)")
         }else if choiceLevel == 6 {
         cardArray = try! Realm().objects(Card.self).filter("originalDeck1 = true")
@@ -48,13 +64,42 @@ class GameViewController: UIViewController, choicesDelegate{
             cardArray = try! Realm().objects(Card.self)
         }
         imageViewSize = choicesFrame.frame.size.height * 0.8
-        // Do any additional setup after loading the view.
+        
+        if let asset = NSDataAsset(name: "ButtonTap") {
+            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Back") {
+            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "DragBegan") {
+            dragBeganAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            dragBeganAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "DragEnded") {
+            dragEndedAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            dragEndedAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Correct") {
+            correctAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            correctAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Incorrect") {
+            incorrectAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            incorrectAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         if cardArray.count > 4{
-        for _ in 0 ... 3{
+//            if choiceLevel == 1{
+//                cardSetForEasy()
+//                setCorrect()
+//            }else{
+        for _ in 0 ... numberOfChoices{
             cardSelect()
         }
         setCorrect()
@@ -64,13 +109,14 @@ class GameViewController: UIViewController, choicesDelegate{
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if cardArray.count < 6{
             popUp()
         }
     }
-    
+
     func popUp(){
-        let alertController: UIAlertController = UIAlertController(title: "カードの枚数が足りません", message: "カード５枚以上必要です", preferredStyle: .alert)
+        let alertController: UIAlertController = UIAlertController(title: "カードの枚数が足りません", message: "カードが５枚以上必要です", preferredStyle: .alert)
         let card = UIAlertAction(title: "カード編集へ", style: .default, handler:{(action: UIAlertAction!) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 let storyboard: UIStoryboard = self.storyboard!
@@ -114,6 +160,23 @@ class GameViewController: UIViewController, choicesDelegate{
         }
     }
     
+//    func cardSetForEasy(){
+//        let center = choicesFrame.frame.origin.y + choicesFrame.frame.height/2
+//
+//            let image = UIImage(data: cardArray[Int(arc4random_uniform(UInt32(cardArray.count)))].image! as Data)
+//            let imageView = UIImageView(image: image)
+//            imageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
+//            imageView.tag = 1
+//            let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
+//            imageView.addGestureRecognizer(panGesture)
+//            imageView.isUserInteractionEnabled = true
+//            let imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 2)
+//            imageView.center = CGPoint(x: choicesFrame.frame.origin.x + imageInterval * CGFloat(1), y: center)
+//            self.view.addSubview(imageView)
+//
+//        }
+//    }
+    
     func setCorrect(){
         correctTag = Int(arc4random_uniform(UInt32(numberOfChoices)))
         let correctImage = UIImage(data: cardArray[choiceIdArray[correctTag]].image! as Data)
@@ -133,6 +196,9 @@ class GameViewController: UIViewController, choicesDelegate{
     @objc func imageMoved(sender: UIPanGestureRecognizer) {
         if sender.state == .began{
             locationBeforeTouch.origin = sender.view!.frame.origin
+            if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            dragBeganAudioPlayer.play()
+            }
         }
         let move:CGPoint = sender.translation(in: view)
         sender.view!.center.x += move.x
@@ -146,22 +212,31 @@ class GameViewController: UIViewController, choicesDelegate{
                     if firstContact{
                         collectCount += 1
                     }
-                    print(collectCount)
+                    if UserDefaults.standard.bool(forKey: Constants.correctSoundKey) == false{
+                    correctAudioPlayer.play()
+                    }
                     performSegue(withIdentifier: "toCorrect", sender: nil)
                     choiceIdArray.removeAll()
                     correctTag = 0
                     removeAllImage()
                 }else{
                     firstContact = false
+                    if UserDefaults.standard.bool(forKey: Constants.incorrectSoundKey) == false{
+                    incorrectAudioPlayer.play()
+                    }
                 }
             }
             sender.view!.frame.origin = locationBeforeTouch.origin
+            if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            dragEndedAudioPlayer.play()
+            }
         }
     }
 
 //設定画面の操作
     @IBAction func handleCoverView(_ sender: Any) {
         self.slideMenuController()?.openRight()
+        rightVC.delegate = self
     }
 //    デリゲートを作る　→ rightViewにデリゲートを委譲　→ 実行のタイミングや引数を決める
 
@@ -192,23 +267,29 @@ class GameViewController: UIViewController, choicesDelegate{
     
 //    choicesDelegateのデリゲートメソッド（rightVCのボタンタップで起動）
     func decreaseChoices() {
-        if self.numberOfChoices > 0 {
+        if self.numberOfChoices > 1 {
             self.numberOfChoices -= 1
             self.removeAllImage()
-            self.setChoice()
-            rightVC.dismiss(animated: true, completion: nil)
+            for _ in 0 ... numberOfChoices{
+                cardSelect()
+            }
+            setCorrect()
+            setChoice()
+            closeRight()
         }
-        print("decrease")
     }
     
     func  increaseChoices() {
         if self.numberOfChoices < 3 {
             self.numberOfChoices += 1
             self.removeAllImage()
-            self.setChoice()
-            rightVC.dismiss(animated: true, completion: nil)
+            for _ in 0 ... numberOfChoices{
+                cardSelect()
+            }
+            setCorrect()
+            setChoice()
+            closeRight()
         }
-        print("increase")
     }
 
     override func didReceiveMemoryWarning() {

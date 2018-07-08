@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class CMViewController: UIViewController {
 
@@ -15,13 +16,18 @@ class CMViewController: UIViewController {
     @IBOutlet weak var countDownLabel: UILabel!
     var countDownSecond = 5
     
+    var buttonTapAudioPlayer: AVAudioPlayer!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countDown), userInfo: nil, repeats: true)
-
+        
+        if let asset = NSDataAsset(name: "ButtonTap") {
+            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
         // Do any additional setup after loading the view.
     }
     @objc func countDown(){
@@ -38,6 +44,9 @@ class CMViewController: UIViewController {
     }
     
     @objc func toResultSegue(){
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        buttonTapAudioPlayer.play()
+        }
         performSegue(withIdentifier: "toResult", sender: nil)
     }
 

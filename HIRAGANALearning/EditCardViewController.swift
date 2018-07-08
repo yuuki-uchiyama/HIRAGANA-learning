@@ -8,10 +8,12 @@
 
 import UIKit
 import RealmSwift
+import AVFoundation
 
 class EditCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UICollectionViewDelegateFlowLayout {
-
     
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var toHomeButton: UIButton!
     @IBOutlet weak var cardCollectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -20,9 +22,14 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
     
     var searchCount = 0
     
-    
+    var buttonTapAudioPlayer: AVAudioPlayer!
+    var backAudioPlayer: AVAudioPlayer!
+    var checkAudioPlayer: AVAudioPlayer!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        cancelButton.layer.cornerRadius = 40.0
+        toHomeButton.layer.cornerRadius = 40.0
         
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
@@ -35,7 +42,19 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
         
         let nib = UINib(nibName: "cardCollectionViewCell", bundle: nil)
         cardCollectionView.register(nib, forCellWithReuseIdentifier: "Cell")
-
+        
+        if let asset = NSDataAsset(name: "ButtonTap") {
+            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Back") {
+            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Check") {
+            checkAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            checkAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -89,6 +108,9 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        buttonTapAudioPlayer.play()
+        }
         performSegue(withIdentifier: "editCardSegue", sender: nil)
     }
     
@@ -102,56 +124,77 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     @IBAction func allCard(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        checkAudioPlayer.currentTime = 0
+        checkAudioPlayer.play()
+        }
         searchCount = 0
         search()
-//        cardArray = realm.objects(Card.self)
-//        cardCollectionView.reloadData()
+
     }
     @IBAction func characterCount1(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            checkAudioPlayer.currentTime = 0
+            checkAudioPlayer.play()
+        }
         searchCount = 1
         search()
-//        cardArray = realm.objects(Card.self).filter("group == 1")
-//        cardCollectionView.reloadData()
+
     }
     @IBAction func characterCount2(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            checkAudioPlayer.currentTime = 0
+            checkAudioPlayer.play()
+        }
         searchCount = 2
         search()
-//        cardArray = realm.objects(Card.self).filter("group == 2")
-//        cardCollectionView.reloadData()
+
     }
     @IBAction func charactercount3(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            checkAudioPlayer.currentTime = 0
+            checkAudioPlayer.play()
+        }
         searchCount = 3
         search()
-//        cardArray = realm.objects(Card.self).filter("group == 3")
-//        cardCollectionView.reloadData()
+
     }
     @IBAction func characterCount4(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            checkAudioPlayer.currentTime = 0
+            checkAudioPlayer.play()
+        }
         searchCount = 4
         search()
-//        cardArray = realm.objects(Card.self).filter("group == 4")
-//        cardCollectionView.reloadData()
+
     }
     @IBAction func characterCount5(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            checkAudioPlayer.currentTime = 0
+            checkAudioPlayer.play()
+        }
         searchCount = 5
         search()
-//        cardArray = realm.objects(Card.self).filter("group == 5")
-//        cardCollectionView.reloadData()
+
     }
     @IBAction func originalDeck1(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            checkAudioPlayer.currentTime = 0
+            checkAudioPlayer.play()
+        }
         searchCount = 6
         search()
-//        cardArray = realm.objects(Card.self).filter("originalDeck1 == true")
-//        cardCollectionView.reloadData()
+
     }
     @IBAction func originalDeck2(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            checkAudioPlayer.currentTime = 0
+            checkAudioPlayer.play()
+        }
         searchCount = 7
         search()
-//        cardArray = realm.objects(Card.self).filter("originalDeck2 == true")
-//        cardCollectionView.reloadData()
     }
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -159,7 +202,19 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
     
     @IBAction func unwindToEdit(_ segue: UIStoryboardSegue) {
     }
-
+    
+    @IBAction func cancelButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            backAudioPlayer.play()
+        }
+    }
+    @IBAction func toHomeButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            backAudioPlayer.play()
+        }
+    }
+    
+    
     /*
     // MARK: - Navigation
 

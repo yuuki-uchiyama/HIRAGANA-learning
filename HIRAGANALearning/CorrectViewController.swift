@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class CorrectViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class CorrectViewController: UIViewController {
     var toResultBool = false
     var correctCount = 0
 
+    var buttonTapAudioPlayer: AVAudioPlayer!
+    var backAudioPlayer: AVAudioPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,15 @@ class CorrectViewController: UIViewController {
         
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(readingCharacter))
         self.view.addGestureRecognizer(tapGesture)
+        
+        if let asset = NSDataAsset(name: "ButtonTap") {
+            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Back") {
+            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
 
     }
     
@@ -50,11 +62,18 @@ class CorrectViewController: UIViewController {
                 performSegue(withIdentifier: "toCM", sender: nil)
             }else{
             self.dismiss(animated: true, completion: nil)
+                if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            backAudioPlayer.play()
+        }
             }
         }else {
             readCount += 1
             let character = self.view.viewWithTag(readCount) as! UILabel
             character.textColor = UIColor.red
+            buttonTapAudioPlayer.currentTime = 0
+            if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        buttonTapAudioPlayer.play()
+        }
         }
     }
     

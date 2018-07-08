@@ -10,22 +10,36 @@ import UIKit
 import CropViewController
 import RealmSwift
 import SVProgressHUD
+import AVFoundation
 
 class CreateCardViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TOCropViewControllerDelegate {
 
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var toHomeButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var addDeck1Outlet: UIButton!
     @IBOutlet weak var addDeck2Outlet: UIButton!
     @IBOutlet weak var wordTextField: UITextField!
     @IBOutlet weak var deleteButtonOutlet: UIButton!
     @IBOutlet weak var createButtonOutlet: UIButton!
+    @IBOutlet weak var pitureWordLabel: UILabel!
     var newCardBool = true
     
     var card : Card!
     let realm = try! Realm()
     
+    var buttonTapAudioPlayer: AVAudioPlayer!
+    var backAudioPlayer: AVAudioPlayer!
+    var importantAudioPlayer: AVAudioPlayer!
+    var checkAudioPlayer: AVAudioPlayer!
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        cancelButton.layer.cornerRadius = 40.0
+        toHomeButton.layer.cornerRadius = 40.0
+        deleteButtonOutlet.layer.cornerRadius = 40.0
+        createButtonOutlet.layer.cornerRadius = 40.0
         
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(popUp)))
@@ -44,16 +58,29 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
         
         setCard()
         
-        print("デバッグ：\(card)")
-        
-
-
+        if let asset = NSDataAsset(name: "ButtonTap") {
+            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Back") {
+            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Important") {
+            importantAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            importantAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Check") {
+            checkAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            checkAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
         // Do any additional setup after loading the view.
     }
     
     func setCard(){
         if let image = card.image{
             imageView.image = UIImage(data: image as Data)
+            pitureWordLabel.isHidden = true
         }else{
             imageView.image = nil
         }
@@ -112,7 +139,7 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     func cropViewController(_ cropViewController: TOCropViewController, didCropToImage image: UIImage, rect cropRect: CGRect, angle: Int) {
         imageView.image = image
         cropViewController.dismiss(animated: true, completion: nil)
-        
+        pitureWordLabel.isHidden = true
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -120,6 +147,10 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func addDeck1(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        checkAudioPlayer.currentTime = 0
+        checkAudioPlayer.play()
+        }
         if addDeck1Outlet.isSelected{
             addDeck1Outlet.isSelected = false
         }else{
@@ -128,6 +159,10 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func addDeck2(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        checkAudioPlayer.currentTime = 0
+        checkAudioPlayer.play()
+        }
         if addDeck2Outlet.isSelected{
             addDeck2Outlet.isSelected = false
         }else{
@@ -142,7 +177,14 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
             addDeck2Outlet.isSelected = false
             card.image = nil
             setCard()
+            if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            backAudioPlayer.play()
+        }
+            pitureWordLabel.isHidden = false
         }else{
+            if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        importantAudioPlayer.play()
+        }
             let alertController: UIAlertController = UIAlertController(title: "「\(card.word)」を削除しますか？", message: "カードリストからデータが削除され、使用できなくなります", preferredStyle: .alert)
             let yes = UIAlertAction(title: "はい", style: .default, handler: {
                 (action: UIAlertAction!) -> Void in
@@ -177,12 +219,19 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
                 card = Card()
                 card.id += cardId
                 setCard()
+                if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        importantAudioPlayer.play()
+        }
+                pitureWordLabel.isHidden = false
                 }else{
                 SVProgressHUD.showError(withStatus: "同じひらがなのカードがあります")
                 }
             }else{
                 cardRegister()
                 SVProgressHUD.showSuccess(withStatus: "カードを修正しました！")
+                if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        importantAudioPlayer.play()
+        }
                 self.performSegue(withIdentifier: "unwindToEdit", sender: nil)
             }
         }
@@ -221,7 +270,22 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     @IBAction func unwindToCreateCard(_ segue:UIStoryboardSegue){
     }
     
+    @IBAction func cancelButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            backAudioPlayer.play()
+        }
+        
+    }
+    
+    @IBAction func toHomeButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            backAudioPlayer.play()
+        }
+    }
 
+    
+    
     /*
     // MARK: - Navigation
 

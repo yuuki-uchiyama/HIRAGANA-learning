@@ -8,11 +8,30 @@
 
 import UIKit
 import RealmSwift
+import AVFoundation
 
 class CardViewController: UIViewController {
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
+    
+    var buttonTapAudioPlayer: AVAudioPlayer!
+    var backAudioPlayer: AVAudioPlayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        backButton.layer.cornerRadius = 40.0
+        createButton.layer.cornerRadius = 100.0
+        editButton.layer.cornerRadius = 100.0
+
+        if let asset = NSDataAsset(name: "ButtonTap") {
+            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Back") {
+            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -37,14 +56,20 @@ class CardViewController: UIViewController {
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func backButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            backAudioPlayer.play()
+        }
     }
-    */
-
+    @IBAction func createButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        buttonTapAudioPlayer.play()
+        }
+    }
+    @IBAction func editButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+        buttonTapAudioPlayer.play()
+        }
+    }
+    
 }
