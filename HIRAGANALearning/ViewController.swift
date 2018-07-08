@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         
     let realm = try! Realm()
     var cardArray = try! Realm().objects(Card.self)
-    let wordArray = ["き", "やま", "くるま", "にわとり", "いちご", "れもん", "りんご", "らいおん", "もも", "めろん", "みかん", "ふね", "ぶどう", "ぶた", "ひこうき", "ぴあの", "ばなな", "ばいく", "ねこ", "いぬ", "とら", "とまと", "とうもろこし", "でんしゃ", "たまねぎ", "だいこん", "ぞう", "すいか", "しんかんせん", "さる", "さつまいも", "こあら", "けーき", "うさぎ", "くま", "きりん", "きゅうり", "きのこ", "きつね", "うま", "うし", "め", "みみ", "ひ", "は", "て"]
+    let wordArray = ["き", "やま", "くるま", "にわとり", "いちご", "れもん", "りんご", "らいおん", "もも", "めろん", "みかん", "ふね", "ぶどう", "ぶた", "ひこうき", "せんぷうき", "ばなな", "れいぞうこ", "ねこ", "いぬ", "とら", "とまと", "とうもろこし", "でんしゃ", "たまねぎ", "だいこん", "ぞう", "すいか", "しんかんせん", "さる", "さつまいも", "こあら", "すべりだい", "うさぎ", "くま", "きりん", "きゅうり", "きのこ", "きつね", "うま", "うし", "め", "みみ", "ひ", "は", "て", "じてんしゃ", "くつした", "すいとう", "はぶらし"]
 
     var buttonTapAudioPlayer: AVAudioPlayer!
     
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         if UserDefaults.standard.bool(forKey: Constants.defaultSettingKey){
         }else{
             UserDefaults.standard.set(true, forKey: Constants.defaultSettingKey)
-            for i in 0 ... 45{
+            for i in 0 ... 49{
                 let card = Card()
                 card.id = i
                 card.word = wordArray[i]

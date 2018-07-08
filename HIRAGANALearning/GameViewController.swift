@@ -150,6 +150,7 @@ class GameViewController: UIViewController, choicesDelegate{
             let image = UIImage(data: cardArray[choiceIdArray[i]].image! as Data)
             let imageView = UIImageView(image: image)
             imageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
+            imageView.contentMode = UIViewContentMode.scaleAspectFit
             imageView.tag = i
             let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
             imageView.addGestureRecognizer(panGesture)
@@ -182,6 +183,7 @@ class GameViewController: UIViewController, choicesDelegate{
         let correctImage = UIImage(data: cardArray[choiceIdArray[correctTag]].image! as Data)
         correctImageView = UIImageView(image: correctImage)
         correctImageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
+        correctImageView.contentMode = UIViewContentMode.scaleAspectFit
         correctImageView.center = AnswerFrame.center
         correctImageView.alpha = 0.0
         UIView.animate(withDuration: hintDuration, delay: 1.0, options: [.curveEaseIn], animations: {

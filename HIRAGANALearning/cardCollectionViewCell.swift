@@ -41,6 +41,8 @@ class cardCollectionViewCell: UICollectionViewCell {
     
     func setCard(){
         cardImage.image = UIImage(data: cardData.image! as Data)
+        cardImage.contentMode = UIViewContentMode.scaleAspectFit
+
         word.text! = cardData.word
         if cardData.originalDeck1{
             originalDeck1.text = "オリジナル　１"

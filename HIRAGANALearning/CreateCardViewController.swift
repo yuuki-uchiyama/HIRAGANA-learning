@@ -130,7 +130,6 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
             
             let editor = TOCropViewController(image: image)
             editor.delegate = self
-            editor.aspectRatioLockEnabled = true
             editor.aspectRatioPreset = TOCropViewControllerAspectRatioPreset(rawValue: 1)!
             editor.aspectRatioPickerButtonHidden = true
             picker.pushViewController(editor, animated: true)
