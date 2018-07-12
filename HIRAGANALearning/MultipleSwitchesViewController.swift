@@ -149,6 +149,9 @@ class MultipleSwitchesViewController: UIViewController {
         if toNext == nil || toNext == ""{
             SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showError(withStatus: "「次へ」ボタンが未設定です")
+        }else if (toNext?.count)! > 1 || (decision?.count)! > 1{
+            SVProgressHUD.setMinimumDismissTimeInterval(0)
+            SVProgressHUD.showError(withStatus: "2文字以上入力されています")
         }else if decision == nil || decision == ""{
             SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showError(withStatus: "「決定」ボタンが未設定です")
@@ -162,6 +165,9 @@ class MultipleSwitchesViewController: UIViewController {
             if toPrevious == nil || toPrevious == ""{
                 SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showError(withStatus: "「前へ」ボタンを設定するか、「使用しない」にチェックを入れてください")
+            }else if (toPrevious?.count)! > 1{
+                SVProgressHUD.setMinimumDismissTimeInterval(0)
+                SVProgressHUD.showError(withStatus: "2文字以上入力されています")
             }else if toPrevious == toNext || toPrevious == decision{
                 SVProgressHUD.showError(withStatus: "同じボタンが設定されています")
             }else if toPrevious!.isHiragana || toPrevious!.isKatakana{

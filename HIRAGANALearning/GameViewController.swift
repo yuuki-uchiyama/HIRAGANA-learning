@@ -38,7 +38,9 @@ class GameViewController: UIViewController, choicesDelegate{
 
     var choiceLevel = 0
     var choiceGroupArray: [Int] = []
-    var hintDuration = 0.0
+    var hintInterval = 0.0
+    var hintTimer: Timer!
+    var hintArray: [UIView] = []
     
     var locationBeforeTouch = CGRect()
     
@@ -110,30 +112,20 @@ class GameViewController: UIViewController, choicesDelegate{
         super.viewWillAppear(animated)
         intervalCalculate()
         if cardArray.count > 4{
-
-        for _ in 0 ... numberOfChoices{
-            cardSelect()
+            for _ in 0 ... numberOfChoices{
+                cardSelect()
+            }
+            setCorrect()
+            setChoice()
+            setHint()
+            choiceIdArray.removeAll()
+            
+            firstContact = true
+            
+            startQuestion()
+            switchControl = userDefaults.integer(forKey: Constants.SwitchKey)
+            switchController()
         }
-        setCorrect()
-        setChoice()
-        }
-        firstContact = true
-        AnswerWord.isHidden = true
-        correctAddButton = UIButton()
-        correctAddButton.layer.backgroundColor = UIColor.yellow.cgColor
-        correctAddButton.layer.cornerRadius = 150.0
-        correctAddButton.frame.size = CGSize(width: 300, height: 300)
-        correctAddButton.center = view.center
-        correctAddButton.addTarget(self, action: #selector(correctLabelAdded), for: .touchUpInside)
-        self.view.addSubview(correctAddButton)
-        let tapGesture = UIImage(named: "tapGesture")
-        tapGestureImage = UIImageView(image: tapGesture)
-        tapGestureImage.frame.origin = view.center
-        self.view.addSubview(tapGestureImage)
-        
-        switchControl = userDefaults.integer(forKey: Constants.SwitchKey)
-        switchController()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -199,10 +191,37 @@ class GameViewController: UIViewController, choicesDelegate{
         correctImageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
         correctImageView.contentMode = UIViewContentMode.scaleAspectFit
         correctImageView.center = AnswerFrame.center
-        correctImageView.alpha = 0.0
 
         self.view.addSubview(correctImageView)
         AnswerWord.text = cardArray[choiceIdArray[randomNumber]].word
+    }
+    
+    func setHint(){
+        for i in 0 ... 3599{
+            let hintView = UIView()
+            let hintViewSize = correctImageView.frame.width / 60
+            hintView.backgroundColor = UIColor.lightGray
+            hintView.frame.size = CGSize(width: hintViewSize, height: hintViewSize)
+            hintView.frame.origin.x = hintViewSize * CGFloat(i % 60)
+            hintView.frame.origin.y = hintViewSize * floor(CGFloat(i / 60))
+            hintArray.append(hintView)
+            correctImageView.addSubview(hintView)
+        }
+    }
+    
+    func startQuestion(){
+        AnswerWord.isHidden = true
+        correctAddButton = UIButton()
+        correctAddButton.layer.backgroundColor = UIColor.yellow.cgColor
+        correctAddButton.layer.cornerRadius = 150.0
+        correctAddButton.frame.size = CGSize(width: 300, height: 300)
+        correctAddButton.center = view.center
+        correctAddButton.addTarget(self, action: #selector(correctLabelAdded), for: .touchUpInside)
+        self.view.addSubview(correctAddButton)
+        let tapGesture = UIImage(named: "tapGesture")
+        tapGestureImage = UIImageView(image: tapGesture)
+        tapGestureImage.frame.origin = view.center
+        self.view.addSubview(tapGestureImage)
     }
     
     @objc func correctLabelAdded(){
@@ -224,9 +243,21 @@ class GameViewController: UIViewController, choicesDelegate{
         if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
             dragEndedAudioPlayer.play()
         }
-        UIView.animate(withDuration: hintDuration, delay: 1.0, options: [.curveEaseIn], animations: {
-            self.correctImageView.alpha = 1.0
-        }, completion: nil)
+        hintTimer = Timer.scheduledTimer(timeInterval: TimeInterval(hintInterval), target: self, selector: #selector(hint), userInfo: nil, repeats: true)
+    }
+    
+    @objc func hint(){
+        for _ in 0 ... 2{
+            let hintId = Int(arc4random_uniform(UInt32(hintArray.count)))
+            UIView.animate(withDuration: 0.2, delay: 1.0, options: [.curveEaseIn], animations: {
+                self.hintArray[hintId].alpha = 0.0
+                self.hintArray.remove(at: hintId)
+            })
+            if hintArray.count == 0{
+                self.hintTimer.invalidate()
+                break
+            }
+        }
     }
     
 //    ドラッグ移動の機能設定
@@ -294,7 +325,6 @@ class GameViewController: UIViewController, choicesDelegate{
                 correctViewController.toResultBool = true
                 correctViewController.correctCount = collectCount
             }
-            print("問題数：\(problemNumber)")
         }
     }
     
@@ -309,6 +339,9 @@ class GameViewController: UIViewController, choicesDelegate{
             }
             setCorrect()
             setChoice()
+            setHint()
+            startQuestion()
+            choiceIdArray.removeAll()
             closeRight()
             switchController()
         }
@@ -324,6 +357,9 @@ class GameViewController: UIViewController, choicesDelegate{
             }
             setCorrect()
             setChoice()
+            setHint()
+            startQuestion()
+            choiceIdArray.removeAll()
             closeRight()
             switchController()
         }
@@ -333,6 +369,8 @@ class GameViewController: UIViewController, choicesDelegate{
         if switchControl != 0{
             switchControlTextField.frame.origin = CGPoint(x: view.frame.width, y: view.frame.height)
             self.view.addSubview(switchControlTextField)
+            switchControlTextField.inputAssistantItem.leadingBarButtonGroups.removeAll()
+            switchControlTextField.inputAssistantItem.trailingBarButtonGroups.removeAll()
             switchControlTextField.becomeFirstResponder()
             cursor.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
             cursor.layer.borderColor = UIColor.yellow.cgColor
@@ -415,8 +453,6 @@ class GameViewController: UIViewController, choicesDelegate{
             }
         }
             switchControlTextField.text = ""
-        print(correctTag)
-        print(cursorTag)
     }
     
     @objc func multipleSwitches(){

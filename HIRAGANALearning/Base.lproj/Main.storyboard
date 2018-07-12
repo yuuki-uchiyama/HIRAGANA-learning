@@ -55,10 +55,8 @@
                                 <rect key="frame" x="269" y="155" width="120" height="120"/>
                                 <color key="backgroundColor" red="0.45138680930000002" green="0.99309605359999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="2Mc-f1-1jT"/>
                                     <constraint firstAttribute="width" constant="120" id="3hx-SP-peN"/>
                                     <constraint firstAttribute="height" constant="120" id="lGn-Gh-5o6"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="wyn-5d-Nqf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="90"/>
                                 <nil key="textColor"/>
@@ -1692,10 +1690,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AnswerFrame" translatesAutoresizingMaskIntoConstraints="NO" id="wYi-Jl-BxF">
-                                <rect key="frame" x="387" y="40" width="250" height="250"/>
+                                <rect key="frame" x="377" y="44" width="270" height="270"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="9lr-Ia-Lj8"/>
-                                    <constraint firstAttribute="height" constant="250" id="lnl-F4-BYg"/>
+                                    <constraint firstAttribute="width" constant="270" id="9lr-Ia-Lj8"/>
+                                    <constraint firstAttribute="height" constant="270" id="lnl-F4-BYg"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="103" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChoiceFrame" translatesAutoresizingMaskIntoConstraints="NO" id="q4n-66-xgQ">
@@ -1727,6 +1725,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.57254901960000004" green="0.80000000000000004" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="zJU-zK-FPp" firstAttribute="top" secondItem="wYi-Jl-BxF" secondAttribute="bottom" constant="20" id="4sD-TF-R2Z"/>
                             <constraint firstItem="q4n-66-xgQ" firstAttribute="leading" secondItem="VaG-2V-XJp" secondAttribute="leading" constant="20" id="AME-DL-rvM"/>
                             <constraint firstItem="VaG-2V-XJp" firstAttribute="trailing" secondItem="q4n-66-xgQ" secondAttribute="trailing" constant="20" id="IFd-Bk-JOk"/>
                             <constraint firstItem="fMv-8W-2FU" firstAttribute="trailing" secondItem="VaG-2V-XJp" secondAttribute="trailing" id="PNC-z5-WiK"/>
@@ -1735,7 +1734,6 @@
                             <constraint firstItem="zJU-zK-FPp" firstAttribute="centerY" secondItem="grr-5W-8Qt" secondAttribute="centerY" id="bhc-jr-4ke"/>
                             <constraint firstItem="fMv-8W-2FU" firstAttribute="top" secondItem="grr-5W-8Qt" secondAttribute="top" id="h2k-Jh-qsp"/>
                             <constraint firstItem="wYi-Jl-BxF" firstAttribute="centerX" secondItem="grr-5W-8Qt" secondAttribute="centerX" id="jmb-3f-ESB"/>
-                            <constraint firstItem="wYi-Jl-BxF" firstAttribute="top" secondItem="VaG-2V-XJp" secondAttribute="top" constant="20" id="ySv-jR-CeP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VaG-2V-XJp"/>
                     </view>
@@ -2143,7 +2141,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AnswerFrame" width="800" height="600"/>
+        <image name="AnswerFrame" width="780" height="568"/>
         <image name="ChoiceFrame" width="762" height="542"/>
         <image name="OffSpeaker" width="256" height="256"/>
         <image name="OnSpeaker" width="256" height="256"/>

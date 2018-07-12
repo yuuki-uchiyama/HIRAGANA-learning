@@ -146,6 +146,9 @@ class SingleSwitchViewController: UIViewController, UIPickerViewDataSource, UIPi
         }else if singleDecision!.isHiragana || singleDecision!.isKatakana{
             SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showError(withStatus: "ひらがな・カタカナはボタン設定に使用できません")
+        }else if (singleDecision?.count)! > 1{
+            SVProgressHUD.setMinimumDismissTimeInterval(0)
+            SVProgressHUD.showError(withStatus: "2文字以上入力されています")
         }else{
             if userDefaults.bool(forKey: Constants.tapSoundKey) == false{
                 importantAudioPlayer.play()

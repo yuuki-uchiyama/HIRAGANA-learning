@@ -40,6 +40,8 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
         waitLabel.center = self.view.center
         waitLabel.backgroundColor = UIColor.lightGray
         waitLabel.font = UIFont(name: "Hiragino Maru Gothic ProN", size: 80)
+        waitLabel.textAlignment = NSTextAlignment.center
+
         waitLabel.text = "ちょっとまってね"
         view.addSubview(waitLabel)
 
@@ -63,6 +65,7 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
     
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        waitLabel.isHidden = true
         correctCountLabel.text = "\(correctCount)"
         
         let animationGroup = CAAnimationGroup()

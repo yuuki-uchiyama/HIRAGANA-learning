@@ -45,7 +45,7 @@ class ChoiceLevelViewController: UIViewController {
         deck2Button.layer.cornerRadius = 40.0
         
         hintSpeadSlider.minimumValue = 0.0
-        hintSpeadSlider.maximumValue = 100.0
+        hintSpeadSlider.maximumValue = 10.0
         UserDefaults.standard.register(defaults: [Constants.hintSpeadKey: 50.0])
         hintSpeadSlider.value = UserDefaults.standard.float(forKey: Constants.hintSpeadKey)
         
@@ -73,7 +73,7 @@ class ChoiceLevelViewController: UIViewController {
         if segue.identifier != nil {
             let slideViewcontroller: SlideViewController = segue.destination as! SlideViewController
             slideViewcontroller.gameView.choiceLevel = Int(segue.identifier!)!
-            slideViewcontroller.gameView.hintDuration = Double(hintSpeadSlider.value)
+            slideViewcontroller.gameView.hintInterval = Double(hintSpeadSlider.value)
             UserDefaults.standard.set(hintSpeadSlider.value, forKey: Constants.hintSpeadKey)
 
         }

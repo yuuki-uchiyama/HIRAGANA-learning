@@ -35,6 +35,7 @@ class CorrectViewController: UIViewController {
         super.viewDidLoad()
         
         correctImageView.image = correctImage
+        correctImageView.contentMode = UIViewContentMode.scaleAspectFit
         
         characterCount = answerWord.count
         for i in 1 ... characterCount{
@@ -64,6 +65,8 @@ class CorrectViewController: UIViewController {
         if switchControl != 0{
             switchControlTextField.frame.origin = CGPoint(x: view.frame.width, y: view.frame.height)
             self.view.addSubview(switchControlTextField)
+            switchControlTextField.inputAssistantItem.leadingBarButtonGroups.removeAll()
+            switchControlTextField.inputAssistantItem.trailingBarButtonGroups.removeAll()
             switchControlTextField.becomeFirstResponder()
         }
         if switchControl == 1{
