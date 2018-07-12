@@ -23,12 +23,20 @@ class RightViewController: UIViewController,  SlideMenuControllerDelegate{
     @IBOutlet weak var tapSound: UIView!
     @IBOutlet weak var incorrectSound: UIView!
     @IBOutlet weak var correctSound: UIView!
+    @IBOutlet weak var decreaseButton: UIButton!
+    @IBOutlet weak var increaseButton: UIButton!
+    
     
     var buttonTapAudioPlayer: AVAudioPlayer!
     var backAudioPlayer: AVAudioPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        toHomeButton.layer.cornerRadius = 20.0
+        toChoiceLevelButton.layer.cornerRadius = 20.0
+        decreaseButton.layer.cornerRadius = 50.0
+        increaseButton.layer.cornerRadius = 50.0
 
         if UserDefaults.standard.bool(forKey: Constants.tapSoundKey){
             tapSound.alpha = 0.2

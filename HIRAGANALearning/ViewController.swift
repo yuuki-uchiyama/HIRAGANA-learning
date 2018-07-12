@@ -16,17 +16,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var cardButton: UIButton!
     @IBOutlet weak var soundButton: UIButton!
     @IBOutlet weak var settingButton: UIButton!
-        
+    @IBOutlet weak var titleLabel: UILabel!
+    
     let realm = try! Realm()
     var cardArray = try! Realm().objects(Card.self)
     let wordArray = ["き", "やま", "くるま", "にわとり", "いちご", "れもん", "りんご", "らいおん", "もも", "めろん", "みかん", "ふね", "ぶどう", "ぶた", "ひこうき", "せんぷうき", "ばなな", "れいぞうこ", "ねこ", "いぬ", "とら", "とまと", "とうもろこし", "でんしゃ", "たまねぎ", "だいこん", "ぞう", "すいか", "しんかんせん", "さる", "さつまいも", "こあら", "すべりだい", "うさぎ", "くま", "きりん", "きゅうり", "きのこ", "きつね", "うま", "うし", "め", "みみ", "ひ", "は", "て", "じてんしゃ", "くつした", "すいとう", "はぶらし"]
 
     var buttonTapAudioPlayer: AVAudioPlayer!
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        titleLabel.layer.cornerRadius = 60.0
+        titleLabel.clipsToBounds = true
         startButton.layer.cornerRadius = 80.0
         cardButton.layer.cornerRadius = 80.0
         soundButton.layer.cornerRadius = 80.0

@@ -40,7 +40,7 @@ class ResultViewController: UIViewController {
         animation1.toValue = 1.0
         let animation2 = CABasicAnimation(keyPath: "transform.rotation")
         animation2.fromValue = 0.0
-        animation2.toValue = M_PI * 2.0
+        animation2.toValue = Double.pi * 2.0
         animation2.speed = 2.0
         animationGroup.animations = [animation1, animation2]
         correctCountLabel.layer.add(animationGroup, forKey: nil)

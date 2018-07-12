@@ -12,49 +12,57 @@ import SlideMenuControllerSwift
 import AVFoundation
 
 class GameViewController: UIViewController, choicesDelegate{
+    
+    let userDefaults = UserDefaults.standard
 
     @IBOutlet weak var choicesFrame: UIImageView!
     @IBOutlet weak var AnswerFrame: UIImageView!
     @IBOutlet weak var AnswerWord: UILabel!
+    
+    var correctAddButton: UIButton!
+    var tapGestureImage: UIImageView!
     var correctImageView : UIImageView!
     var correctTag = 0
     var imageViewSize: CGFloat!
     
     var numberOfChoices = 3
+    var imageInterval:CGFloat = 0.0
+    var choicePosition:CGPoint!
     var firstContact = true
     var problemNumber = 0
     var collectCount = 0
     var choiceId: Int!
     var choiceIdArray: [Int] = []
     var cardArray = try! Realm().objects(Card.self)
-    var cardArray2 = try! Realm().objects(Card.self).filter("group = 2")
-    var cardArray3 = try! Realm().objects(Card.self).filter("group = 3")
-    var cardArray4 = try! Realm().objects(Card.self).filter("group = 4")
-
 
     var choiceLevel = 0
+    var choiceGroupArray: [Int] = []
     var hintDuration = 0.0
     
     var locationBeforeTouch = CGRect()
-    
-    let rightVC = RightViewController()
     
     var buttonTapAudioPlayer: AVAudioPlayer!
     var backAudioPlayer: AVAudioPlayer!
     var dragBeganAudioPlayer: AVAudioPlayer!
     var dragEndedAudioPlayer: AVAudioPlayer!
-    
+    var questionAudioPlayer: AVAudioPlayer!
     var correctAudioPlayer: AVAudioPlayer!
-    
     var incorrectAudioPlayer: AVAudioPlayer!
-  
+    
+    let switchControlTextField: UITextField = UITextField()
+    var switchControl = 0
+    var cursor: UIView = UIView()
+    var cursorTag = 1
+    var decisionSwitch = ""
+    var singleSwitchTimer :Timer!
+    var timeInterval = 0
+    var toNextSwitch = ""
+    var toPreviousSwitch = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if choiceLevel == 1 {
-        cardArray = try! Realm().objects(Card.self).filter("group = 1 or group = 5")
-        }else if 2 ... 5 ~= choiceLevel{
+        if choiceLevel <= 5{
         cardArray = try! Realm().objects(Card.self).filter("group = \(choiceLevel)")
         }else if choiceLevel == 6 {
         cardArray = try! Realm().objects(Card.self).filter("originalDeck1 = true")
@@ -64,6 +72,7 @@ class GameViewController: UIViewController, choicesDelegate{
             cardArray = try! Realm().objects(Card.self)
         }
         imageViewSize = choicesFrame.frame.size.height * 0.8
+        choicePosition = CGPoint(x: choicesFrame.frame.origin.x, y:choicesFrame.frame.origin.y + choicesFrame.frame.height/2)
         
         if let asset = NSDataAsset(name: "ButtonTap") {
             buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
@@ -72,6 +81,10 @@ class GameViewController: UIViewController, choicesDelegate{
         if let asset = NSDataAsset(name: "Back") {
             backAudioPlayer = try! AVAudioPlayer(data: asset.data)
             backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Question") {
+            questionAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            questionAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
         }
         if let asset = NSDataAsset(name: "DragBegan") {
             dragBeganAudioPlayer = try! AVAudioPlayer(data: asset.data)
@@ -89,16 +102,14 @@ class GameViewController: UIViewController, choicesDelegate{
             incorrectAudioPlayer = try! AVAudioPlayer(data: asset.data)
             incorrectAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
         }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        intervalCalculate()
         if cardArray.count > 4{
-//            if choiceLevel == 1{
-//                cardSetForEasy()
-//                setCorrect()
-//            }else{
+
         for _ in 0 ... numberOfChoices{
             cardSelect()
         }
@@ -106,11 +117,27 @@ class GameViewController: UIViewController, choicesDelegate{
         setChoice()
         }
         firstContact = true
+        AnswerWord.isHidden = true
+        correctAddButton = UIButton()
+        correctAddButton.backgroundColor = UIColor.yellow
+        correctAddButton.layer.cornerRadius = 150.0
+        correctAddButton.frame.size = CGSize(width: 300, height: 300)
+        correctAddButton.center = view.center
+        correctAddButton.addTarget(self, action: #selector(correctLabelAdded), for: .touchUpInside)
+        self.view.addSubview(correctAddButton)
+        let tapGesture = UIImage(named: "tapGesture")
+        tapGestureImage = UIImageView(image: tapGesture)
+        tapGestureImage.frame.origin = view.center
+        self.view.addSubview(tapGestureImage)
+        
+        switchControl = userDefaults.integer(forKey: Constants.SwitchKey)
+        switchController()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if cardArray.count < 6{
+        if cardArray.count < 5{
             popUp()
         }
     }
@@ -143,55 +170,62 @@ class GameViewController: UIViewController, choicesDelegate{
             }
     }
     
+    func intervalCalculate(){
+        imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 2)
+    }
+    
     func setChoice(){
-        let center = choicesFrame.frame.origin.y + choicesFrame.frame.height/2
         
         for i in 0 ... numberOfChoices{
             let image = UIImage(data: cardArray[choiceIdArray[i]].image! as Data)
             let imageView = UIImageView(image: image)
             imageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
             imageView.contentMode = UIViewContentMode.scaleAspectFit
-            imageView.tag = i
+            imageView.tag = i + 1
             let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
             imageView.addGestureRecognizer(panGesture)
             imageView.isUserInteractionEnabled = true
-            let imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 2)
-            imageView.center = CGPoint(x: choicesFrame.frame.origin.x + imageInterval * CGFloat(i + 1), y: center)
+            imageView.center = CGPoint(x: choicePosition.x + imageInterval * CGFloat(i + 1), y: choicePosition.y)
             self.view.addSubview(imageView)
         }
     }
     
-//    func cardSetForEasy(){
-//        let center = choicesFrame.frame.origin.y + choicesFrame.frame.height/2
-//
-//            let image = UIImage(data: cardArray[Int(arc4random_uniform(UInt32(cardArray.count)))].image! as Data)
-//            let imageView = UIImageView(image: image)
-//            imageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
-//            imageView.tag = 1
-//            let panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target:self, action:#selector(imageMoved(sender: )))
-//            imageView.addGestureRecognizer(panGesture)
-//            imageView.isUserInteractionEnabled = true
-//            let imageInterval = choicesFrame.frame.width / CGFloat(numberOfChoices + 2)
-//            imageView.center = CGPoint(x: choicesFrame.frame.origin.x + imageInterval * CGFloat(1), y: center)
-//            self.view.addSubview(imageView)
-//
-//        }
-//    }
-    
     func setCorrect(){
-        correctTag = Int(arc4random_uniform(UInt32(numberOfChoices)))
-        let correctImage = UIImage(data: cardArray[choiceIdArray[correctTag]].image! as Data)
+        let randomNumber = Int(arc4random_uniform(UInt32(numberOfChoices)))
+        correctTag = randomNumber + 1
+        let correctImage = UIImage(data: cardArray[choiceIdArray[randomNumber]].image! as Data)
         correctImageView = UIImageView(image: correctImage)
         correctImageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
         correctImageView.contentMode = UIViewContentMode.scaleAspectFit
         correctImageView.center = AnswerFrame.center
         correctImageView.alpha = 0.0
+
+        self.view.addSubview(correctImageView)
+        AnswerWord.text = cardArray[choiceIdArray[randomNumber]].word
+    }
+    
+    @objc func correctLabelAdded(){
+        correctAddButton.isHidden = true
+        tapGestureImage.isHidden = true
+        AnswerWord.isHidden = false
+        let animationGroup = CAAnimationGroup()
+        animationGroup.duration = 0.5
+        animationGroup.fillMode = kCAFillModeForwards
+        animationGroup.isRemovedOnCompletion = false
+        let animation1 = CABasicAnimation(keyPath: "transform.scale")
+        animation1.fromValue = 5.0
+        animation1.toValue = 1.0
+        let animation2 = CABasicAnimation(keyPath: "transform.rotation")
+        animation2.fromValue = 0.0
+        animation2.toValue = Double.pi * 4.0
+        animationGroup.animations = [animation1, animation2]
+        AnswerWord.layer.add(animationGroup, forKey: nil)
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            dragEndedAudioPlayer.play()
+        }
         UIView.animate(withDuration: hintDuration, delay: 1.0, options: [.curveEaseIn], animations: {
             self.correctImageView.alpha = 1.0
         }, completion: nil)
-
-        self.view.addSubview(correctImageView)
-        AnswerWord.text = cardArray[choiceIdArray[correctTag]].word
     }
     
 //    ドラッグ移動の機能設定
@@ -238,11 +272,7 @@ class GameViewController: UIViewController, choicesDelegate{
 //設定画面の操作
     @IBAction func handleCoverView(_ sender: Any) {
         self.slideMenuController()?.openRight()
-        rightVC.delegate = self
     }
-//    デリゲートを作る　→ rightViewにデリゲートを委譲　→ 実行のタイミングや引数を決める
-
-
     
     func removeAllImage(){
         let subviews = view.subviews
@@ -272,12 +302,14 @@ class GameViewController: UIViewController, choicesDelegate{
         if self.numberOfChoices > 1 {
             self.numberOfChoices -= 1
             self.removeAllImage()
+            intervalCalculate()
             for _ in 0 ... numberOfChoices{
                 cardSelect()
             }
             setCorrect()
             setChoice()
             closeRight()
+            switchController()
         }
     }
     
@@ -285,13 +317,156 @@ class GameViewController: UIViewController, choicesDelegate{
         if self.numberOfChoices < 3 {
             self.numberOfChoices += 1
             self.removeAllImage()
+            intervalCalculate()
             for _ in 0 ... numberOfChoices{
                 cardSelect()
             }
             setCorrect()
             setChoice()
             closeRight()
+            switchController()
         }
+    }
+    
+    func switchController(){
+        if switchControl != 0{
+            switchControlTextField.frame.origin = CGPoint(x: view.frame.width, y: view.frame.height)
+            self.view.addSubview(switchControlTextField)
+            switchControlTextField.becomeFirstResponder()
+            cursor.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
+            cursor.layer.borderColor = UIColor.yellow.cgColor
+            cursor.layer.borderWidth = 7.5
+            cursor.layer.cornerRadius = 20.0
+            cursor.center = CGPoint(x: choicePosition.x + imageInterval, y: choicePosition.y)
+            cursorTag = 1
+            self.view.addSubview(cursor)
+            let switchLabel:UILabel = UILabel()
+            switchLabel.frame.size = CGSize(width: 200, height: 30)
+            switchLabel.backgroundColor = UIColor.yellow
+            switchLabel.frame.origin = self.view.frame.origin
+            switchLabel.font = UIFont(name: "Hiragino Maru Gothic ProN", size: 15)
+            switchLabel.text = "スイッチコントロール起動中"
+            self.view.addSubview(switchLabel)
+        }
+        if switchControl == 1{
+            timeInterval = userDefaults.integer(forKey: Constants.cursorSpeedKey)
+            self.singleSwitchTimer = Timer.scheduledTimer(timeInterval: TimeInterval(timeInterval), target: self, selector: #selector(cursorMove), userInfo: nil, repeats: true)
+            decisionSwitch = userDefaults.string(forKey: Constants.singleDecisionKey)!
+            switchControlTextField.addTarget(self, action: #selector(SwitchDecision), for: .editingChanged)
+        }else if switchControl > 1{
+            toNextSwitch = userDefaults.string(forKey: Constants.toNextKey)!
+            toPreviousSwitch = userDefaults.string(forKey: Constants.toPreviousKey)!
+            decisionSwitch = userDefaults.string(forKey: Constants.multiDecisionKey)!
+            switchControlTextField.addTarget(self, action: #selector(multipleSwitches), for: .editingChanged)
+        }
+    }
+    
+    @objc func cursorMove(){
+        if cursorTag > numberOfChoices{
+            cursorTag = 1
+        }else{
+        cursorTag += 1
+        }
+        cursor.center = CGPoint(x: choicePosition.x + imageInterval * CGFloat(cursorTag), y: choicePosition.y)
+    }
+    
+    @objc func SwitchDecision(){
+        if (switchControlTextField.text?.lowercased().contains(decisionSwitch))! {
+            if AnswerWord.isHidden{
+                correctLabelAdded()
+            }else{
+                singleSwitchTimer.invalidate()
+                let cursorChoice = self.view.viewWithTag(cursorTag) as! UIImageView
+                let moveDistanceX = correctImageView.center.x - cursorChoice.center.x
+                let moveDistanceY = correctImageView.center.y - cursorChoice.center.y
+                let originalPosition = cursorChoice.center
+                UIView.animate(withDuration: 0.5, animations: {
+                    cursorChoice.center = CGPoint(x: originalPosition.x + moveDistanceX, y: originalPosition.y + moveDistanceY)
+                }, completion: { finished in
+                    if self.cursorTag == self.correctTag{
+                    if self.firstContact{
+                        self.collectCount += 1
+                    }
+                    if UserDefaults.standard.bool(forKey: Constants.correctSoundKey) == false{
+                        self.correctAudioPlayer.play()
+                    }
+                    self.performSegue(withIdentifier: "toCorrect", sender: nil)
+                    self.choiceIdArray.removeAll()
+                    self.correctTag = 0
+                    self.removeAllImage()
+                }else{
+                    self.firstContact = false
+                    if UserDefaults.standard.bool(forKey: Constants.incorrectSoundKey) == false{
+                        self.incorrectAudioPlayer.play()
+                    }
+                        UIView.animate(withDuration: 0.3, animations: {
+                            cursorChoice.center = originalPosition
+                            })
+                        self.singleSwitchTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.timeInterval), target: self, selector: #selector(self.cursorMove), userInfo: nil, repeats: true)
+                    }
+                })
+            }
+        }
+            switchControlTextField.text = ""
+        print(correctTag)
+        print(cursorTag)
+    }
+    
+    @objc func multipleSwitches(){
+        if (switchControlTextField.text?.lowercased().contains(toNextSwitch))! {
+            if AnswerWord.isHidden{
+                correctLabelAdded()
+            }else if cursorTag > numberOfChoices{
+                cursorTag = 1
+            }else{
+                cursorTag += 1
+            }
+            cursor.center = CGPoint(x: choicePosition.x + imageInterval * CGFloat(cursorTag), y: choicePosition.y)
+        }else if (switchControlTextField.text?.lowercased().contains(toPreviousSwitch))!{
+            if AnswerWord.isHidden{
+                correctLabelAdded()
+            }else if cursorTag == 1{
+                cursorTag = numberOfChoices + 1
+            }else{
+                cursorTag -= 1
+            }
+            cursor.center = CGPoint(x: choicePosition.x + imageInterval * CGFloat(cursorTag), y: choicePosition.y)
+        }
+        if (switchControlTextField.text?.lowercased().contains(decisionSwitch))! {
+            if AnswerWord.isHidden{
+                correctLabelAdded()
+            }else{
+                let cursorChoice = self.view.viewWithTag(cursorTag) as! UIImageView
+                let moveDistanceX = correctImageView.center.x - cursorChoice.center.x
+                let moveDistanceY = correctImageView.center.y - cursorChoice.center.y
+                let originalPosition = cursorChoice.center
+                UIView.animate(withDuration: 0.5, animations: {
+                    cursorChoice.center = CGPoint(x: originalPosition.x + moveDistanceX, y: originalPosition.y + moveDistanceY)
+                }, completion: { finished in
+                    if self.cursorTag == self.correctTag{
+                        if self.firstContact{
+                            self.collectCount += 1
+                        }
+                        if UserDefaults.standard.bool(forKey: Constants.correctSoundKey) == false{
+                            self.correctAudioPlayer.play()
+                        }
+                        self.performSegue(withIdentifier: "toCorrect", sender: nil)
+                        self.choiceIdArray.removeAll()
+                        self.correctTag = 0
+                        self.removeAllImage()
+                    }else{
+                        self.firstContact = false
+                        if UserDefaults.standard.bool(forKey: Constants.incorrectSoundKey) == false{
+                            self.incorrectAudioPlayer.play()
+                        }
+                        UIView.animate(withDuration: 0.3, animations: {
+                            cursorChoice.center = originalPosition
+                        })
+                    }
+                })
+            }
+        }
+        switchControlTextField.text = ""
     }
 
     override func didReceiveMemoryWarning() {

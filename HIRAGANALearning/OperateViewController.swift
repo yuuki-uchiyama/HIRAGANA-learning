@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import SVProgressHUD
 
 class OperateViewController: UIViewController {
     
@@ -67,10 +68,29 @@ class OperateViewController: UIViewController {
         }
     }
     @IBAction func noSwitchButton(_ sender: Any) {
-        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
-        importantAudioPlayer.play()
-        }
+        let alertController = UIAlertController(title: "ボタン設定を解除しますか？", message: nil, preferredStyle: .alert)
+        let OK = UIAlertAction(title: "OK", style: .destructive, handler: {
+            (acrion:UIAlertAction) -> Void in
+            if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+                self.importantAudioPlayer.play()
+            }
+            let userDefaults = UserDefaults.standard
+            userDefaults.removeObject(forKey: Constants.SwitchKey)
+            userDefaults.removeObject(forKey: Constants.cursorSpeedKey)
+            userDefaults.removeObject(forKey: Constants.singleDecisionKey)
+            userDefaults.removeObject(forKey: Constants.toNextKey)
+            userDefaults.removeObject(forKey: Constants.toPreviousKey)
+            userDefaults.removeObject(forKey: Constants.multiDecisionKey)
+            SVProgressHUD.setMinimumDismissTimeInterval(0)
+            SVProgressHUD.showSuccess(withStatus: "ボタン操作を解除しました")
+        })
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
+        
+        alertController.addAction(OK)
+        alertController.addAction(cancel)
+        present(alertController, animated: true, completion: nil)
     }
+
     
     /*
     // MARK: - Navigation

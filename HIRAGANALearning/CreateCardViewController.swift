@@ -40,6 +40,7 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
         toHomeButton.layer.cornerRadius = 40.0
         deleteButtonOutlet.layer.cornerRadius = 40.0
         createButtonOutlet.layer.cornerRadius = 40.0
+        SVProgressHUD.setMinimumDismissTimeInterval(0)
         
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(popUp)))
@@ -190,6 +191,7 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
                 try! self.realm.write{
                     self.realm.delete(self.card)
                 }
+                SVProgressHUD.setMinimumDismissTimeInterval(0)
                 SVProgressHUD.showSuccess(withStatus: "カードを削除しました")
                 self.performSegue(withIdentifier: "unwindToEdit", sender: nil)
             })
@@ -203,16 +205,20 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBAction func createButton(_ sender: Any) {
         if wordTextField.text == ""{
+            SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showError(withStatus: "ひらがなが入力されていません")
         }else if (wordTextField.text?.count)! > 10 {
+            SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showError(withStatus: "文字数が多すぎます")
         }else if imageView.image == nil{
+            SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showError(withStatus: "画像が選択されていません")
         }else{
             if newCardBool{
             let sameCardArray = realm.objects(Card.self).filter("word like '\(wordTextField.text!)'")
             if sameCardArray.count == 0{
                 cardRegister()
+                SVProgressHUD.setMinimumDismissTimeInterval(0)
                 SVProgressHUD.showSuccess(withStatus: "カードを保存しました！")
                 let cardId = card.id + 1
                 card = Card()
@@ -223,10 +229,12 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
         }
                 pitureWordLabel.isHidden = false
                 }else{
+                SVProgressHUD.setMinimumDismissTimeInterval(0)
                 SVProgressHUD.showError(withStatus: "同じひらがなのカードがあります")
                 }
             }else{
                 cardRegister()
+                SVProgressHUD.setMinimumDismissTimeInterval(0)
                 SVProgressHUD.showSuccess(withStatus: "カードを修正しました！")
                 if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
         importantAudioPlayer.play()
