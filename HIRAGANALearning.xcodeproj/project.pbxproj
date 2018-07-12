@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1BEBF8549EAC23C87C786386 /* Pods_HIRAGANALearning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7CC050A4BF0B31F5275E2D3 /* Pods_HIRAGANALearning.framework */; };
+		8117503720F75A6E00521B8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8117503620F75A6E00521B8F /* GoogleService-Info.plist */; };
 		81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7EF20ED216D00B2894B /* SlideViewController.swift */; };
 		81D5B7F220ED2BC100B2894B /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7F120ED2BC100B2894B /* RightViewController.swift */; };
 		81D5B7F420EF6EEF00B2894B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */; };
@@ -20,7 +21,6 @@
 		81D5F05120DBBF0000D7A2D3 /* ChoiceLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F05020DBBF0000D7A2D3 /* ChoiceLevelViewController.swift */; };
 		81D5F05320DBBF1C00D7A2D3 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F05220DBBF1C00D7A2D3 /* GameViewController.swift */; };
 		81D5F05520DBBF9400D7A2D3 /* CorrectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F05420DBBF9400D7A2D3 /* CorrectViewController.swift */; };
-		81D5F05720DBBFDD00D7A2D3 /* CMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F05620DBBFDD00D7A2D3 /* CMViewController.swift */; };
 		81D5F05920DBBFE900D7A2D3 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F05820DBBFE900D7A2D3 /* ResultViewController.swift */; };
 		81D5F05B20DC28AF00D7A2D3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F05A20DC28AF00D7A2D3 /* SettingViewController.swift */; };
 		81D5F05D20DC28D300D7A2D3 /* OperateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5F05C20DC28D300D7A2D3 /* OperateViewController.swift */; };
@@ -36,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		691E1CBDFA31E25B65A869C4 /* Pods-HIRAGANALearning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HIRAGANALearning.release.xcconfig"; path = "Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning.release.xcconfig"; sourceTree = "<group>"; };
+		8117503620F75A6E00521B8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		81D5B7EF20ED216D00B2894B /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		81D5B7F120ED2BC100B2894B /* RightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
 		81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -50,7 +51,6 @@
 		81D5F05020DBBF0000D7A2D3 /* ChoiceLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceLevelViewController.swift; sourceTree = "<group>"; };
 		81D5F05220DBBF1C00D7A2D3 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		81D5F05420DBBF9400D7A2D3 /* CorrectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectViewController.swift; sourceTree = "<group>"; };
-		81D5F05620DBBFDD00D7A2D3 /* CMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMViewController.swift; sourceTree = "<group>"; };
 		81D5F05820DBBFE900D7A2D3 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		81D5F05A20DC28AF00D7A2D3 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		81D5F05C20DC28D300D7A2D3 /* OperateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperateViewController.swift; sourceTree = "<group>"; };
@@ -107,7 +107,6 @@
 				81D5F05220DBBF1C00D7A2D3 /* GameViewController.swift */,
 				81D5B7F120ED2BC100B2894B /* RightViewController.swift */,
 				81D5F05420DBBF9400D7A2D3 /* CorrectViewController.swift */,
-				81D5F05620DBBFDD00D7A2D3 /* CMViewController.swift */,
 				81D5F05820DBBFE900D7A2D3 /* ResultViewController.swift */,
 				81D5F05A20DC28AF00D7A2D3 /* SettingViewController.swift */,
 				81D5F05C20DC28D300D7A2D3 /* OperateViewController.swift */,
@@ -124,6 +123,7 @@
 				81D5F04520DBA4E800D7A2D3 /* Assets.xcassets */,
 				81D5F04720DBA4E800D7A2D3 /* LaunchScreen.storyboard */,
 				81D5F04A20DBA4E800D7A2D3 /* Info.plist */,
+				8117503620F75A6E00521B8F /* GoogleService-Info.plist */,
 			);
 			path = HIRAGANALearning;
 			sourceTree = "<group>";
@@ -208,6 +208,7 @@
 			files = (
 				81DF5DB120E4DA040099ED11 /* cardCollectionViewCell.xib in Resources */,
 				81D5F04920DBA4E800D7A2D3 /* LaunchScreen.storyboard in Resources */,
+				8117503720F75A6E00521B8F /* GoogleService-Info.plist in Resources */,
 				81D5F04620DBA4E800D7A2D3 /* Assets.xcassets in Resources */,
 				81D5F04420DBA4E500D7A2D3 /* Main.storyboard in Resources */,
 			);
@@ -242,18 +243,22 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -282,7 +287,6 @@
 				81D5F03F20DBA4E500D7A2D3 /* AppDelegate.swift in Sources */,
 				81D5F06520DC297B00D7A2D3 /* CardViewController.swift in Sources */,
 				81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */,
-				81D5F05720DBBFDD00D7A2D3 /* CMViewController.swift in Sources */,
 				81D5F06320DC295500D7A2D3 /* SingleSwitchViewController.swift in Sources */,
 				81D5F05520DBBF9400D7A2D3 /* CorrectViewController.swift in Sources */,
 				81D5B7F220ED2BC100B2894B /* RightViewController.swift in Sources */,

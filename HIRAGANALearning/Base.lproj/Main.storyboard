@@ -1692,14 +1692,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AnswerFrame" translatesAutoresizingMaskIntoConstraints="NO" id="wYi-Jl-BxF">
-                                <rect key="frame" x="387" y="20" width="250" height="250"/>
+                                <rect key="frame" x="387" y="40" width="250" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="9lr-Ia-Lj8"/>
                                     <constraint firstAttribute="height" constant="250" id="lnl-F4-BYg"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="103" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChoiceFrame" translatesAutoresizingMaskIntoConstraints="NO" id="q4n-66-xgQ">
-                                <rect key="frame" x="20" y="498" width="984" height="250"/>
+                                <rect key="frame" x="20" y="458" width="984" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="BCQ-zD-jXp"/>
                                 </constraints>
@@ -1731,11 +1731,11 @@
                             <constraint firstItem="VaG-2V-XJp" firstAttribute="trailing" secondItem="q4n-66-xgQ" secondAttribute="trailing" constant="20" id="IFd-Bk-JOk"/>
                             <constraint firstItem="fMv-8W-2FU" firstAttribute="trailing" secondItem="VaG-2V-XJp" secondAttribute="trailing" id="PNC-z5-WiK"/>
                             <constraint firstItem="zJU-zK-FPp" firstAttribute="centerX" secondItem="grr-5W-8Qt" secondAttribute="centerX" id="Qqx-RS-hFT"/>
-                            <constraint firstItem="VaG-2V-XJp" firstAttribute="bottom" secondItem="q4n-66-xgQ" secondAttribute="bottom" constant="20" id="VHc-10-uti"/>
+                            <constraint firstItem="VaG-2V-XJp" firstAttribute="bottom" secondItem="q4n-66-xgQ" secondAttribute="bottom" constant="60" id="VHc-10-uti"/>
                             <constraint firstItem="zJU-zK-FPp" firstAttribute="centerY" secondItem="grr-5W-8Qt" secondAttribute="centerY" id="bhc-jr-4ke"/>
                             <constraint firstItem="fMv-8W-2FU" firstAttribute="top" secondItem="grr-5W-8Qt" secondAttribute="top" id="h2k-Jh-qsp"/>
                             <constraint firstItem="wYi-Jl-BxF" firstAttribute="centerX" secondItem="grr-5W-8Qt" secondAttribute="centerX" id="jmb-3f-ESB"/>
-                            <constraint firstItem="wYi-Jl-BxF" firstAttribute="top" secondItem="VaG-2V-XJp" secondAttribute="top" id="ySv-jR-CeP"/>
+                            <constraint firstItem="wYi-Jl-BxF" firstAttribute="top" secondItem="VaG-2V-XJp" secondAttribute="top" constant="20" id="ySv-jR-CeP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VaG-2V-XJp"/>
                     </view>
@@ -2005,51 +2005,12 @@
                     <connections>
                         <outlet property="correctImageView" destination="yg8-XB-S98" id="v8y-kw-ESy"/>
                         <outlet property="wordFrame" destination="3IE-4O-ISP" id="znO-Jr-enj"/>
-                        <segue destination="EEl-YW-1dz" kind="show" identifier="toCM" id="e36-GS-AbP"/>
+                        <segue destination="TCQ-aq-B8e" kind="show" identifier="toResult" id="KBe-59-9bI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XCt-gz-8Ds" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-519.140625" y="2261.71875"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="SER-4T-C5y">
-            <objects>
-                <viewController id="EEl-YW-1dz" customClass="CMViewController" customModule="HIRAGANALearning" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="COh-0l-xZj">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whr-nT-niw">
-                                <rect key="frame" x="20" y="98" width="984" height="75"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="75"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCU-bU-qj5">
-                                <rect key="frame" x="244" y="240" width="537" height="471"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ync-u2-D72">
-                                <rect key="frame" x="448" y="438" width="128" height="75"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="75"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.57254901960000004" green="0.80000000000000004" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <viewLayoutGuide key="safeArea" id="fgF-Uq-TBM"/>
-                    </view>
-                    <connections>
-                        <outlet property="countDownLabel" destination="whr-nT-niw" id="mk4-zR-RHR"/>
-                        <segue destination="TCQ-aq-B8e" kind="show" identifier="toResult" id="jSi-t0-cek"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jC1-hi-4Vo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-523.2421875" y="2936.71875"/>
         </scene>
         <!--Result View Controller-->
         <scene sceneID="sLN-mR-GV7">
@@ -2139,10 +2100,10 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bP1-tA-QQ3">
-                                <rect key="frame" x="102" y="185" width="250" height="250"/>
+                                <rect key="frame" x="92" y="185" width="260" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="8wf-HV-06b"/>
-                                    <constraint firstAttribute="width" constant="250" id="FYd-mU-BTG"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="260" id="hko-zY-mzT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="196"/>
                                 <nil key="textColor"/>
@@ -2178,7 +2139,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pJK-Gu-Yi1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="XFc-c2-uY5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-519.140625" y="3622.65625"/>
+            <point key="canvasLocation" x="-519" y="2989"/>
         </scene>
     </scenes>
     <resources>

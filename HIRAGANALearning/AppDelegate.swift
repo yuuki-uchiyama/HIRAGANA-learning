@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import Firebase
+import GoogleMobileAds
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
+            FirebaseApp.configure()
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3940256099942544/4411468910")
+
+            return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

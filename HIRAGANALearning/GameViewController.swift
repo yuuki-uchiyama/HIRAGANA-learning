@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import SlideMenuControllerSwift
 import AVFoundation
+import SVProgressHUD
 
 class GameViewController: UIViewController, choicesDelegate{
     
@@ -119,7 +120,7 @@ class GameViewController: UIViewController, choicesDelegate{
         firstContact = true
         AnswerWord.isHidden = true
         correctAddButton = UIButton()
-        correctAddButton.backgroundColor = UIColor.yellow
+        correctAddButton.layer.backgroundColor = UIColor.yellow.cgColor
         correctAddButton.layer.cornerRadius = 150.0
         correctAddButton.frame.size = CGSize(width: 300, height: 300)
         correctAddButton.center = view.center
@@ -335,11 +336,12 @@ class GameViewController: UIViewController, choicesDelegate{
             switchControlTextField.becomeFirstResponder()
             cursor.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
             cursor.layer.borderColor = UIColor.yellow.cgColor
-            cursor.layer.borderWidth = 7.5
+            cursor.layer.borderWidth = 9
             cursor.layer.cornerRadius = 20.0
             cursor.center = CGPoint(x: choicePosition.x + imageInterval, y: choicePosition.y)
             cursorTag = 1
             self.view.addSubview(cursor)
+            self.view.insertSubview(cursor, aboveSubview: choicesFrame)
             let switchLabel:UILabel = UILabel()
             switchLabel.frame.size = CGSize(width: 200, height: 30)
             switchLabel.backgroundColor = UIColor.yellow
@@ -355,7 +357,9 @@ class GameViewController: UIViewController, choicesDelegate{
             switchControlTextField.addTarget(self, action: #selector(SwitchDecision), for: .editingChanged)
         }else if switchControl > 1{
             toNextSwitch = userDefaults.string(forKey: Constants.toNextKey)!
+            if switchControl == 3{
             toPreviousSwitch = userDefaults.string(forKey: Constants.toPreviousKey)!
+            }
             decisionSwitch = userDefaults.string(forKey: Constants.multiDecisionKey)!
             switchControlTextField.addTarget(self, action: #selector(multipleSwitches), for: .editingChanged)
         }
@@ -371,6 +375,9 @@ class GameViewController: UIViewController, choicesDelegate{
     }
     
     @objc func SwitchDecision(){
+        if (switchControlTextField.text?.isHiragana)! || (switchControlTextField.text?.isKatakana)!{
+            SVProgressHUD.showError(withStatus: "日本語入力をオフにしてください")
+        }
         if (switchControlTextField.text?.lowercased().contains(decisionSwitch))! {
             if AnswerWord.isHidden{
                 correctLabelAdded()
@@ -413,6 +420,10 @@ class GameViewController: UIViewController, choicesDelegate{
     }
     
     @objc func multipleSwitches(){
+        if (switchControlTextField.text?.isHiragana)! || (switchControlTextField.text?.isKatakana)!{
+            SVProgressHUD.setMinimumDismissTimeInterval(0)
+            SVProgressHUD.showError(withStatus: "日本語入力をオフにしてください")
+        }
         if (switchControlTextField.text?.lowercased().contains(toNextSwitch))! {
             if AnswerWord.isHidden{
                 correctLabelAdded()

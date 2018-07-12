@@ -71,7 +71,9 @@ class CorrectViewController: UIViewController {
             switchControlTextField.addTarget(self, action: #selector(readingCharacter), for: .editingChanged)
         }else if switchControl > 1{
             toNextSwitch = userDefaults.string(forKey: Constants.toNextKey)!
+            if switchControl == 3{
             toPreviousSwitch = userDefaults.string(forKey: Constants.toPreviousKey)!
+            }
             decisionSwitch = userDefaults.string(forKey: Constants.multiDecisionKey)!
             switchControlTextField.addTarget(self, action: #selector(readingCharacter), for: .editingChanged)
         }
@@ -81,7 +83,7 @@ class CorrectViewController: UIViewController {
     @objc func readingCharacter(){
         if readCount == characterCount{
             if toResultBool{
-                performSegue(withIdentifier: "toCM", sender: nil)
+                performSegue(withIdentifier: "toResult", sender: nil)
             }else{
                 switchControlTextField.isHidden = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -100,12 +102,15 @@ class CorrectViewController: UIViewController {
                 buttonTapAudioPlayer.play()
             }
         }
+        if switchControl != 0{
+            switchControlTextField.text = ""
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toCM"{
-            let cmViewController:CMViewController = segue.destination as! CMViewController
-            cmViewController.correctCount = self.correctCount
+        if segue.identifier == "toResult"{
+            let resultViewController:ResultViewController = segue.destination as! ResultViewController
+            resultViewController.correctCount = self.correctCount
         }
     }
     

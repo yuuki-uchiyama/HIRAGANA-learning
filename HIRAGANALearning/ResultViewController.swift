@@ -8,27 +8,61 @@
 
 import UIKit
 import AVFoundation
+import GoogleMobileAds
 
-class ResultViewController: UIViewController {
+class ResultViewController: UIViewController, GADInterstitialDelegate {
+    
+    var interstitial: GADInterstitial!
     
     var correctCount = 0
     @IBOutlet weak var correctCountLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textView: UIView!
     @IBOutlet weak var stampImageView: UIImageView!
-    @IBOutlet weak var crackerImageView: UIImageView!
     @IBOutlet weak var oneMoreButton: UIButton!
     @IBOutlet weak var toHomeButton: UIButton!
     
     var backAudioPlayer: AVAudioPlayer!
     var stampAudioPlayer: AVAudioPlayer!
     var fanfareAudioPlayer: AVAudioPlayer!
+    
+    var waitLabel: UILabel! = UILabel()
 
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial.delegate = self
+        let request = GADRequest()
+        interstitial.load(request)
+        waitLabel.frame.size = self.view.frame.size
+        waitLabel.center = self.view.center
+        waitLabel.backgroundColor = UIColor.lightGray
+        waitLabel.font = UIFont(name: "Hiragino Maru Gothic ProN", size: 80)
+        waitLabel.text = "ちょっとまってね"
+        view.addSubview(waitLabel)
+
+        if let asset = NSDataAsset(name: "Back") {
+            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Stamp") {
+            stampAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            stampAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Fanfare") {
+            fanfareAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            fanfareAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        // Do any additional setup after loading the view.
+    }
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        interstitial.present(fromRootViewController: self)
+    }
+    
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         correctCountLabel.text = "\(correctCount)"
         
         let animationGroup = CAAnimationGroup()
@@ -45,19 +79,6 @@ class ResultViewController: UIViewController {
         animationGroup.animations = [animation1, animation2]
         correctCountLabel.layer.add(animationGroup, forKey: nil)
         
-        if let asset = NSDataAsset(name: "Back") {
-            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
-            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
-        }
-        if let asset = NSDataAsset(name: "Stamp") {
-            stampAudioPlayer = try! AVAudioPlayer(data: asset.data)
-            stampAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
-        }
-        if let asset = NSDataAsset(name: "Fanfare") {
-            fanfareAudioPlayer = try! AVAudioPlayer(data: asset.data)
-            fanfareAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
-        }
-        
         if correctCount <= 4{
             stampImageView.image = UIImage(named: "OK")
             stampAudioPlayer.play()
@@ -68,11 +89,9 @@ class ResultViewController: UIViewController {
             stampImageView.image = UIImage(named: "VeryGood")
             stampAudioPlayer.play()
             if correctCount > 8{
-                crackerImageView.image = UIImage(named: "AmazingMovie")
                 fanfareAudioPlayer.play()
             }
         }
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func onMoreButton(_ sender: Any) {

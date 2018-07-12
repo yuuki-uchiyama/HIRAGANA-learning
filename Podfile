@@ -10,5 +10,9 @@ target 'HIRAGANALearning' do
   pod 'RealmSwift', '3.5.0'
   pod 'SVProgressHUD','2.2.5'
   pod 'SlideMenuControllerSwift'
+  pod 'Firebase/Core'
+  pod 'Google-Mobile-Ads-SDK'
+
+
 
 end
