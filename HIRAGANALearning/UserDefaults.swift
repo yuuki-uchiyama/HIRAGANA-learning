@@ -40,3 +40,4 @@ extension String{
         return NSPredicate(format: "SELF MATCHES %@", range).evaluate(with: self)
     }
 }
+

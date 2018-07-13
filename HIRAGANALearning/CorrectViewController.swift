@@ -34,6 +34,17 @@ class CorrectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let asset = NSDataAsset(name: "ButtonTap") {
+            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+        }
+        if let asset = NSDataAsset(name: "Back") {
+            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
+            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
+    }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         correctImageView.image = correctImage
         correctImageView.contentMode = UIViewContentMode.scaleAspectFit
         
@@ -51,15 +62,6 @@ class CorrectViewController: UIViewController {
         
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(readingCharacter))
         self.view.addGestureRecognizer(tapGesture)
-        
-        if let asset = NSDataAsset(name: "ButtonTap") {
-            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
-            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
-        }
-        if let asset = NSDataAsset(name: "Back") {
-            backAudioPlayer = try! AVAudioPlayer(data: asset.data)
-            backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
-        }
         
         switchControl = userDefaults.integer(forKey: Constants.SwitchKey)
         if switchControl != 0{

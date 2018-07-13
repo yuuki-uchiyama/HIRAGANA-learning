@@ -74,8 +74,6 @@ class GameViewController: UIViewController, choicesDelegate{
         }else if choiceLevel == 8{
             cardArray = try! Realm().objects(Card.self)
         }
-        imageViewSize = choicesFrame.frame.size.height * 0.8
-        choicePosition = CGPoint(x: choicesFrame.frame.origin.x, y:choicesFrame.frame.origin.y + choicesFrame.frame.height/2)
         
         if let asset = NSDataAsset(name: "ButtonTap") {
             buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
@@ -110,8 +108,17 @@ class GameViewController: UIViewController, choicesDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        intervalCalculate()
-        if cardArray.count > 4{
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if cardArray.count < 5{
+            popUp()
+        }else{
+            imageViewSize = choicesFrame.frame.size.height * 0.8
+            choicePosition = CGPoint(x: choicesFrame.frame.origin.x, y:choicesFrame.frame.origin.y + choicesFrame.frame.height/2)
+            intervalCalculate()
             for _ in 0 ... numberOfChoices{
                 cardSelect()
             }
@@ -125,13 +132,6 @@ class GameViewController: UIViewController, choicesDelegate{
             startQuestion()
             switchControl = userDefaults.integer(forKey: Constants.SwitchKey)
             switchController()
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if cardArray.count < 5{
-            popUp()
         }
     }
 

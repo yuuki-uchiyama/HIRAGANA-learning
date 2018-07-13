@@ -54,6 +54,7 @@ class ViewController: UIViewController {
                     realm.add(card, update: true)
                 }
             }
+            UserDefaults.standard.register(defaults: [Constants.volumeKey: 0.5])
         }
         
         if let asset = NSDataAsset(name: "ButtonTap") {

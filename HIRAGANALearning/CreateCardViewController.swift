@@ -12,7 +12,13 @@ import RealmSwift
 import SVProgressHUD
 import AVFoundation
 
-class CreateCardViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TOCropViewControllerDelegate {
+extension UIImagePickerController{
+    override open var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return .landscape
+    }
+}
+
+class CreateCardViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TOCropViewControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var toHomeButton: UIButton!
@@ -36,6 +42,7 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        wordTextField.delegate = self
         cancelButton.layer.cornerRadius = 40.0
         toHomeButton.layer.cornerRadius = 40.0
         deleteButtonOutlet.layer.cornerRadius = 40.0
@@ -78,9 +85,21 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
         // Do any additional setup after loading the view.
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.wordTextField.isFirstResponder {
+            self.wordTextField.resignFirstResponder()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        wordTextField.resignFirstResponder()
+        return true
+    }
+    
     func setCard(){
         if let image = card.image{
             imageView.image = UIImage(data: image as Data)
+            imageView.contentMode = UIViewContentMode.scaleAspectFit
             pitureWordLabel.isHidden = true
         }else{
             imageView.image = nil
@@ -131,13 +150,12 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
             
             let editor = TOCropViewController(image: image)
             editor.delegate = self
-            editor.aspectRatioPreset = TOCropViewControllerAspectRatioPreset(rawValue: 1)!
-            editor.aspectRatioPickerButtonHidden = true
             picker.pushViewController(editor, animated: true)
         }
     }
     func cropViewController(_ cropViewController: TOCropViewController, didCropToImage image: UIImage, rect cropRect: CGRect, angle: Int) {
         imageView.image = image
+        imageView.contentMode = UIViewContentMode.scaleAspectFit
         cropViewController.dismiss(animated: true, completion: nil)
         pitureWordLabel.isHidden = true
     }
