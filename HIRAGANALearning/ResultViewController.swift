@@ -33,6 +33,7 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        //        ca-app-pub-3240594386716005/3347115625
         interstitial.delegate = self
         let request = GADRequest()
         interstitial.load(request)
@@ -61,11 +62,11 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
     }
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
         interstitial.present(fromRootViewController: self)
+        waitLabel.isHidden = true
     }
     
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        waitLabel.isHidden = true
         correctCountLabel.text = "\(correctCount)"
         
         let animationGroup = CAAnimationGroup()

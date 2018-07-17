@@ -316,6 +316,9 @@ class GameViewController: UIViewController, choicesDelegate{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if singleSwitchTimer != nil{
+            singleSwitchTimer.invalidate()
+        }
         if segue.identifier == "toCorrect"{
         let correctViewController:CorrectViewController = segue.destination as! CorrectViewController
         correctViewController.answerWord = AnswerWord.text!

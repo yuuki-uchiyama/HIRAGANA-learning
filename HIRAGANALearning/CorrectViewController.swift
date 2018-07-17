@@ -53,7 +53,9 @@ class CorrectViewController: UIViewController {
             let word = UILabel()
             word.frame.size = CGSize(width: wordFrame.frame.size.height, height: wordFrame.frame.size.height)
             word.text = String(answerWord[answerWord.index(answerWord.startIndex, offsetBy: i-1) ..< answerWord.index(answerWord.startIndex, offsetBy: i)])
-            word.font = UIFont(name: "Hiragino Maru Gothic ProN", size: 100)
+            word.font = UIFont(name: "Hiragino Maru Gothic ProN", size: 100 )
+            word.adjustsFontSizeToFitWidth = true
+            word.textAlignment = NSTextAlignment.center
             word.tag = i
             let interval = wordFrame.frame.width / CGFloat(characterCount + 1)
             word.center = CGPoint(x: wordFrame.frame.origin.x + interval * CGFloat(i), y: wordFrame.frame.origin.y + wordFrame.frame.size.height / 2)

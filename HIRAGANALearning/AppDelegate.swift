@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
             FirebaseApp.configure()
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-3940256099942544/4411468910")
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3240594386716005~3338532876")
 
             return true
     }
