@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Cbt-1B-8nw" customClass="deckCollectionViewCell" customModule="HIRAGANALearning" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="630"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="630"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UBm-Ne-ezT">
+                        <rect key="frame" x="10" y="0.0" width="580" height="580"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="UBm-Ne-ezT" secondAttribute="height" multiplier="1:1" id="XkU-xo-Kxu"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="Osg-He-q6o">
+                        <rect key="frame" x="5" y="585" width="590" height="40"/>
+                        <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="25"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiC-TM-Jy1">
+                        <rect key="frame" x="0.0" y="0.0" width="61" height="61"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="jiC-TM-Jy1" secondAttribute="height" multiplier="1:1" id="amJ-XD-qej"/>
+                        </constraints>
+                        <state key="normal" image="CheckOff"/>
+                    </button>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="jiC-TM-Jy1" firstAttribute="leading" secondItem="Cbt-1B-8nw" secondAttribute="leading" id="2GM-ev-v7x"/>
+                <constraint firstItem="jiC-TM-Jy1" firstAttribute="top" secondItem="Cbt-1B-8nw" secondAttribute="top" id="3H6-XI-H34"/>
+                <constraint firstItem="Osg-He-q6o" firstAttribute="leading" secondItem="Cbt-1B-8nw" secondAttribute="leading" constant="5" id="4Ku-ch-jEE"/>
+                <constraint firstAttribute="trailing" secondItem="Osg-He-q6o" secondAttribute="trailing" constant="5" id="Qvg-BJ-qlr"/>
+                <constraint firstItem="Osg-He-q6o" firstAttribute="centerX" secondItem="Cbt-1B-8nw" secondAttribute="centerX" id="XUI-ce-Hyd"/>
+                <constraint firstAttribute="bottom" secondItem="Osg-He-q6o" secondAttribute="bottom" constant="5" id="ZFM-CM-yTr"/>
+                <constraint firstItem="UBm-Ne-ezT" firstAttribute="top" secondItem="Cbt-1B-8nw" secondAttribute="top" id="ZGr-Bz-hsq"/>
+                <constraint firstAttribute="trailing" secondItem="UBm-Ne-ezT" secondAttribute="trailing" constant="10" id="lSj-2F-F1H"/>
+                <constraint firstItem="Osg-He-q6o" firstAttribute="top" secondItem="UBm-Ne-ezT" secondAttribute="bottom" constant="5" id="rsO-gH-oDc"/>
+                <constraint firstItem="UBm-Ne-ezT" firstAttribute="leading" secondItem="Cbt-1B-8nw" secondAttribute="leading" constant="10" id="y20-im-vcV"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Rea-Mb-fu8"/>
+            <size key="customSize" width="251" height="79"/>
+            <connections>
+                <outlet property="cardImage" destination="UBm-Ne-ezT" id="6El-ma-fEf"/>
+                <outlet property="checkButton" destination="jiC-TM-Jy1" id="g1D-Lc-5BT"/>
+                <outlet property="word" destination="Osg-He-q6o" id="mM0-sj-oRj"/>
+            </connections>
+            <point key="canvasLocation" x="507" y="-245"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="CheckOff" width="61" height="50"/>
+    </resources>
+</document>

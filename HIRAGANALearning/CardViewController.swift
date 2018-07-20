@@ -14,6 +14,7 @@ class CardViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var deckButton: UIButton!
     
     var buttonTapAudioPlayer: AVAudioPlayer!
     var backAudioPlayer: AVAudioPlayer!
@@ -23,6 +24,7 @@ class CardViewController: UIViewController {
         backButton.layer.cornerRadius = 40.0
         createButton.layer.cornerRadius = 100.0
         editButton.layer.cornerRadius = 100.0
+        deckButton.layer.cornerRadius = 100.0
 
         if let asset = NSDataAsset(name: "ButtonTap") {
             buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)

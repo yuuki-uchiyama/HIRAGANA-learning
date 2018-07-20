@@ -23,6 +23,7 @@ class GameViewController: UIViewController, choicesDelegate{
     var correctAddButton: UIButton!
     var tapGestureImage: UIImageView!
     var correctImageView : UIImageView!
+    var correctImage: UIImage!
     var correctTag = 0
     var imageViewSize: CGFloat!
     
@@ -30,8 +31,10 @@ class GameViewController: UIViewController, choicesDelegate{
     var imageInterval:CGFloat = 0.0
     var choicePosition:CGPoint!
     var firstContact = true
+    var recordArray: [URL] = []
+    var correctArray: [UIImage] = []
+    var correctCount = 0
     var problemNumber = 0
-    var collectCount = 0
     var choiceId: Int!
     var choiceIdArray: [Int] = []
     var cardArray = try! Realm().objects(Card.self)
@@ -186,7 +189,7 @@ class GameViewController: UIViewController, choicesDelegate{
     func setCorrect(){
         let randomNumber = Int(arc4random_uniform(UInt32(numberOfChoices)))
         correctTag = randomNumber + 1
-        let correctImage = UIImage(data: cardArray[choiceIdArray[randomNumber]].image! as Data)
+        correctImage = UIImage(data: cardArray[choiceIdArray[randomNumber]].image! as Data)
         correctImageView = UIImageView(image: correctImage)
         correctImageView.frame.size = CGSize(width: imageViewSize, height: imageViewSize)
         correctImageView.contentMode = UIViewContentMode.scaleAspectFit
@@ -277,16 +280,7 @@ class GameViewController: UIViewController, choicesDelegate{
         if sender.state == .ended{
             if AnswerFrame.frame.contains(sender.view!.center){
                 if sender.view!.tag == correctTag{
-                    if firstContact{
-                        collectCount += 1
-                    }
-                    if UserDefaults.standard.bool(forKey: Constants.correctSoundKey) == false{
-                    correctAudioPlayer.play()
-                    }
-                    performSegue(withIdentifier: "toCorrect", sender: nil)
-                    choiceIdArray.removeAll()
-                    correctTag = 0
-                    removeAllImage()
+                    correctSegue()
                 }else{
                     firstContact = false
                     if UserDefaults.standard.bool(forKey: Constants.incorrectSoundKey) == false{
@@ -300,9 +294,27 @@ class GameViewController: UIViewController, choicesDelegate{
             }
         }
     }
+    
+    func correctSegue(){
+        hintTimer.invalidate()
+        if UserDefaults.standard.bool(forKey: Constants.correctSoundKey) == false{
+            correctAudioPlayer.play()
+        }
+        if firstContact{
+            performSegue(withIdentifier: "toRecord", sender: nil)
+        }else{
+            performSegue(withIdentifier: "toCorrect", sender: nil)
+        }
+        choiceIdArray.removeAll()
+        correctTag = 0
+        removeAllImage()
+    }
 
 //設定画面の操作
     @IBAction func handleCoverView(_ sender: Any) {
+        if switchControl == 1 {
+            singleSwitchTimer.invalidate()
+        }
         self.slideMenuController()?.openRight()
     }
     
@@ -322,11 +334,25 @@ class GameViewController: UIViewController, choicesDelegate{
         if segue.identifier == "toCorrect"{
         let correctViewController:CorrectViewController = segue.destination as! CorrectViewController
         correctViewController.answerWord = AnswerWord.text!
-            correctViewController.correctImage = self.correctImageView.image
+            correctViewController.correctImage = self.correctImage
         problemNumber += 1
             if problemNumber == 10 {
                 correctViewController.toResultBool = true
-                correctViewController.correctCount = collectCount
+                correctViewController.recordArray = self.recordArray
+                correctViewController.correctArray = self.correctArray
+                correctViewController.correctCount = self.correctCount
+            }
+        }else if segue.identifier == "toRecord"{
+            correctCount += 1
+            problemNumber += 1
+            let recordVC: RecordViewController = segue.destination as! RecordViewController
+            recordVC.answerWord = AnswerWord.text!
+            recordVC.correctImage = self.correctImageView.image
+            recordVC.correctCount = self.correctCount
+            if problemNumber == 10 {
+                recordVC.toResultBool = true
+                recordVC.recordArray = self.recordArray
+             recordVC.correctArray = self.correctArray
             }
         }
     }
@@ -432,16 +458,7 @@ class GameViewController: UIViewController, choicesDelegate{
                     cursorChoice.center = CGPoint(x: originalPosition.x + moveDistanceX, y: originalPosition.y + moveDistanceY)
                 }, completion: { finished in
                     if self.cursorTag == self.correctTag{
-                    if self.firstContact{
-                        self.collectCount += 1
-                    }
-                    if UserDefaults.standard.bool(forKey: Constants.correctSoundKey) == false{
-                        self.correctAudioPlayer.play()
-                    }
-                    self.performSegue(withIdentifier: "toCorrect", sender: nil)
-                    self.choiceIdArray.removeAll()
-                    self.correctTag = 0
-                    self.removeAllImage()
+                    self.correctSegue()
                 }else{
                     self.firstContact = false
                     if UserDefaults.standard.bool(forKey: Constants.incorrectSoundKey) == false{
@@ -494,16 +511,7 @@ class GameViewController: UIViewController, choicesDelegate{
                     cursorChoice.center = CGPoint(x: originalPosition.x + moveDistanceX, y: originalPosition.y + moveDistanceY)
                 }, completion: { finished in
                     if self.cursorTag == self.correctTag{
-                        if self.firstContact{
-                            self.collectCount += 1
-                        }
-                        if UserDefaults.standard.bool(forKey: Constants.correctSoundKey) == false{
-                            self.correctAudioPlayer.play()
-                        }
-                        self.performSegue(withIdentifier: "toCorrect", sender: nil)
-                        self.choiceIdArray.removeAll()
-                        self.correctTag = 0
-                        self.removeAllImage()
+                        self.correctSegue()
                     }else{
                         self.firstContact = false
                         if UserDefaults.standard.bool(forKey: Constants.incorrectSoundKey) == false{
@@ -524,4 +532,6 @@ class GameViewController: UIViewController, choicesDelegate{
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func unwindToGame(_ segue:UIStoryboardSegue){
+    }
 }

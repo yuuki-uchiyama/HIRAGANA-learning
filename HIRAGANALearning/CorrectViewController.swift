@@ -18,8 +18,6 @@ class CorrectViewController: UIViewController {
     var answerWord :String = ""
     var characterCount = 0
     var readCount = 0
-    var toResultBool = false
-    var correctCount = 0
     
     var buttonTapAudioPlayer: AVAudioPlayer!
     var backAudioPlayer: AVAudioPlayer!
@@ -30,6 +28,11 @@ class CorrectViewController: UIViewController {
     var decisionSwitch = ""
     var toNextSwitch = ""
     var toPreviousSwitch = ""
+    
+    var recordArray: [URL] = []
+    var correctArray: [UIImage] = []
+    var correctCount = 0
+    var toResultBool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,8 +119,10 @@ class CorrectViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResult"{
-            let resultViewController:ResultViewController = segue.destination as! ResultViewController
-            resultViewController.correctCount = self.correctCount
+            let resultVC:ResultViewController = segue.destination as! ResultViewController
+            resultVC.recordArray = self.recordArray
+            resultVC.correctArray = self.correctArray
+            resultVC.correctCount = self.correctCount
         }
     }
     

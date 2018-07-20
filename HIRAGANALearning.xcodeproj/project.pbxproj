@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1BEBF8549EAC23C87C786386 /* Pods_HIRAGANALearning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7CC050A4BF0B31F5275E2D3 /* Pods_HIRAGANALearning.framework */; };
-		8117503720F75A6E00521B8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8117503620F75A6E00521B8F /* GoogleService-Info.plist */; };
+		8101407520FDF80900FC756A /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101407420FDF80900FC756A /* RecordViewController.swift */; };
+		810140792100C59900FC756A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 810140782100C59900FC756A /* GoogleService-Info.plist */; };
+		8101407B2101BF7300FC756A /* EditDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101407A2101BF7200FC756A /* EditDeckViewController.swift */; };
+		8101407E2101C8EC00FC756A /* deckCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101407C2101C8EC00FC756A /* deckCollectionViewCell.swift */; };
+		8101407F2101C8EC00FC756A /* deckCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8101407D2101C8EC00FC756A /* deckCollectionViewCell.xib */; };
+		810140852101FBF800FC756A /* addDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810140842101FBF800FC756A /* addDeckViewController.swift */; };
 		81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7EF20ED216D00B2894B /* SlideViewController.swift */; };
 		81D5B7F220ED2BC100B2894B /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7F120ED2BC100B2894B /* RightViewController.swift */; };
 		81D5B7F420EF6EEF00B2894B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */; };
@@ -36,7 +41,12 @@
 
 /* Begin PBXFileReference section */
 		691E1CBDFA31E25B65A869C4 /* Pods-HIRAGANALearning.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HIRAGANALearning.release.xcconfig"; path = "Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning.release.xcconfig"; sourceTree = "<group>"; };
-		8117503620F75A6E00521B8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8101407420FDF80900FC756A /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		810140782100C59900FC756A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8101407A2101BF7200FC756A /* EditDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDeckViewController.swift; sourceTree = "<group>"; };
+		8101407C2101C8EC00FC756A /* deckCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deckCollectionViewCell.swift; sourceTree = "<group>"; };
+		8101407D2101C8EC00FC756A /* deckCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = deckCollectionViewCell.xib; sourceTree = "<group>"; };
+		810140842101FBF800FC756A /* addDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addDeckViewController.swift; sourceTree = "<group>"; };
 		81D5B7EF20ED216D00B2894B /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		81D5B7F120ED2BC100B2894B /* RightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
 		81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -107,6 +117,7 @@
 				81D5F05220DBBF1C00D7A2D3 /* GameViewController.swift */,
 				81D5B7F120ED2BC100B2894B /* RightViewController.swift */,
 				81D5F05420DBBF9400D7A2D3 /* CorrectViewController.swift */,
+				8101407420FDF80900FC756A /* RecordViewController.swift */,
 				81D5F05820DBBFE900D7A2D3 /* ResultViewController.swift */,
 				81D5F05A20DC28AF00D7A2D3 /* SettingViewController.swift */,
 				81D5F05C20DC28D300D7A2D3 /* OperateViewController.swift */,
@@ -115,15 +126,19 @@
 				81D5F06420DC297B00D7A2D3 /* CardViewController.swift */,
 				81D5F06820DC29AB00D7A2D3 /* CreateCardViewController.swift */,
 				81D5F06A20DC29D200D7A2D3 /* EditCardViewController.swift */,
+				81DF5DAE20E4DA040099ED11 /* cardCollectionViewCell.swift */,
+				81DF5DAF20E4DA040099ED11 /* cardCollectionViewCell.xib */,
+				8101407A2101BF7200FC756A /* EditDeckViewController.swift */,
+				8101407C2101C8EC00FC756A /* deckCollectionViewCell.swift */,
+				8101407D2101C8EC00FC756A /* deckCollectionViewCell.xib */,
+				810140842101FBF800FC756A /* addDeckViewController.swift */,
 				81DF5DAC20E4BC490099ED11 /* Card.swift */,
 				81D5F04220DBA4E500D7A2D3 /* Main.storyboard */,
 				81D5B7F520F16B0F00B2894B /* UserDefaults.swift */,
-				81DF5DAE20E4DA040099ED11 /* cardCollectionViewCell.swift */,
-				81DF5DAF20E4DA040099ED11 /* cardCollectionViewCell.xib */,
 				81D5F04520DBA4E800D7A2D3 /* Assets.xcassets */,
 				81D5F04720DBA4E800D7A2D3 /* LaunchScreen.storyboard */,
 				81D5F04A20DBA4E800D7A2D3 /* Info.plist */,
-				8117503620F75A6E00521B8F /* GoogleService-Info.plist */,
+				810140782100C59900FC756A /* GoogleService-Info.plist */,
 			);
 			path = HIRAGANALearning;
 			sourceTree = "<group>";
@@ -207,8 +222,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81DF5DB120E4DA040099ED11 /* cardCollectionViewCell.xib in Resources */,
+				8101407F2101C8EC00FC756A /* deckCollectionViewCell.xib in Resources */,
 				81D5F04920DBA4E800D7A2D3 /* LaunchScreen.storyboard in Resources */,
-				8117503720F75A6E00521B8F /* GoogleService-Info.plist in Resources */,
+				810140792100C59900FC756A /* GoogleService-Info.plist in Resources */,
 				81D5F04620DBA4E800D7A2D3 /* Assets.xcassets in Resources */,
 				81D5F04420DBA4E500D7A2D3 /* Main.storyboard in Resources */,
 			);
@@ -278,12 +294,16 @@
 				81D5F05920DBBFE900D7A2D3 /* ResultViewController.swift in Sources */,
 				81D5F05B20DC28AF00D7A2D3 /* SettingViewController.swift in Sources */,
 				81D5F06B20DC29D200D7A2D3 /* EditCardViewController.swift in Sources */,
+				8101407520FDF80900FC756A /* RecordViewController.swift in Sources */,
+				8101407B2101BF7300FC756A /* EditDeckViewController.swift in Sources */,
 				81D5F05120DBBF0000D7A2D3 /* ChoiceLevelViewController.swift in Sources */,
 				81D5F06920DC29AB00D7A2D3 /* CreateCardViewController.swift in Sources */,
 				81DF5DAD20E4BC490099ED11 /* Card.swift in Sources */,
 				81DF5DB020E4DA040099ED11 /* cardCollectionViewCell.swift in Sources */,
+				8101407E2101C8EC00FC756A /* deckCollectionViewCell.swift in Sources */,
 				81D5F06120DC292C00D7A2D3 /* MultipleSwitchesViewController.swift in Sources */,
 				81D5F05D20DC28D300D7A2D3 /* OperateViewController.swift in Sources */,
+				810140852101FBF800FC756A /* addDeckViewController.swift in Sources */,
 				81D5F03F20DBA4E500D7A2D3 /* AppDelegate.swift in Sources */,
 				81D5F06520DC297B00D7A2D3 /* CardViewController.swift in Sources */,
 				81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */,

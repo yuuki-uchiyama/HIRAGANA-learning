@@ -60,6 +60,17 @@ class ChoiceLevelViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        for i in 1 ... 10{
+            let paths = FileManager.default.temporaryDirectory
+            let url = paths.appendingPathComponent(String(i))
+            do {
+                try FileManager.default.removeItem(at: url)
+            } catch {
+            }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
