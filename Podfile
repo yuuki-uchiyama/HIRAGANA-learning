@@ -12,6 +12,9 @@ target 'HIRAGANALearning' do
   pod 'SlideMenuControllerSwift'
   pod 'Firebase/Core'
   pod 'Google-Mobile-Ads-SDK'
+  pod 'Gecco'
+  pod 'paper-onboarding'
+  pod 'BWWalkthrough'
 
 
 

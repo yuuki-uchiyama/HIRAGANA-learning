@@ -62,7 +62,7 @@ class addDeckViewController: UIViewController, UICollectionViewDataSource, UICol
             importantAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
         }
         
-        cardArray = realm.objects(Card.self).filter("\(originalDeck) = false")
+        cardArray = realm.objects(Card.self).filter("\(originalDeck) = false").sorted(byKeyPath: "id", ascending: true)
         // Do any additional setup after loading the view.
     }
     
@@ -94,7 +94,10 @@ class addDeckViewController: UIViewController, UICollectionViewDataSource, UICol
             addArray.append(cardId)
             sender.isSelected = true
         }
-        print(addArray)
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.checkAudioPlayer.currentTime = 0
+            self.checkAudioPlayer.play()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -107,6 +110,15 @@ class addDeckViewController: UIViewController, UICollectionViewDataSource, UICol
         SVProgressHUD.setMinimumDismissTimeInterval(0)
         SVProgressHUD.showError(withStatus: "カードが選択されていません")
         }else{
+            let alertController = UIAlertController(title: "カードをデッキに登録しますか？", message: nil, preferredStyle: .alert)
+            let OK = UIAlertAction(title: "OK", style: .destructive, handler:addDeck )
+            let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
+            alertController.addAction(OK)
+            alertController.addAction(cancel)
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    func addDeck(alert: UIAlertAction!){
         for addId in addArray{
             let addCard = realm.objects(Card.self).filter("id == \(addId)")
             try! realm.write {
@@ -117,11 +129,16 @@ class addDeckViewController: UIViewController, UICollectionViewDataSource, UICol
             SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showSuccess(withStatus: "カードをデッキに登録しました！")
             self.performSegue(withIdentifier: "editDeck", sender: nil)
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.importantAudioPlayer.play()
         }
-    }
+        }
     
     @IBAction func cancelButton(_ sender: Any) {
         self.performSegue(withIdentifier: "editDeck", sender: nil)
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.backAudioPlayer.play()
+        }
     }
     
     override func didReceiveMemoryWarning() {

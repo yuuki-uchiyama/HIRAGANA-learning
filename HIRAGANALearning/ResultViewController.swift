@@ -10,8 +10,9 @@ import UIKit
 import AVFoundation
 import GoogleMobileAds
 import SVProgressHUD
+import Gecco
 
-class ResultViewController: UIViewController, GADInterstitialDelegate {
+class ResultViewController: UIViewController, GADInterstitialDelegate, SpotlightViewControllerDelegate {
     
     var interstitial: GADInterstitial!
     
@@ -47,10 +48,13 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
     var toPreviousSwitch = ""
     var cursorPositionArray: [CGPoint] = []
     
+    private var spotlightVC: AnnotationViewController!
+    var spotIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
-        //        ca-app-pub-3240594386716005/3347115625
+        
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3240594386716005/3347115625")
         interstitial.delegate = self
         let request = GADRequest()
         interstitial.load(request)
@@ -109,9 +113,12 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
             fanfareAudioPlayer = try! AVAudioPlayer(data: asset.data)
             fanfareAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
         }
+        
+        spotlightVC = AnnotationViewController()
+        spotlightVC.delegate = self
         // Do any additional setup after loading the view.
     }
-    
+        
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
         interstitial.present(fromRootViewController: self)
         SVProgressHUD.dismiss()
@@ -149,6 +156,12 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
             }
         }
         switchController()
+        if !userDefaults.bool(forKey: Constants.resultTutorialKey){
+            showSpot()
+            if switchControl > 0 {
+                _ = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(spotTap), userInfo: nil, repeats: false)
+            }
+        }
     }
     
     @objc func playRecord(sender: UIButton){
@@ -231,6 +244,7 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
             self.playRecord(sender: button)
             self.singleSwitchTimer = Timer.scheduledTimer(timeInterval: TimeInterval(timeInterval), target: self, selector: #selector(cursorMove), userInfo: nil, repeats: true)
             }
+        switchControlTextField.text = ""
         }
     
     @objc func multipleSwitches(){
@@ -253,6 +267,25 @@ class ResultViewController: UIViewController, GADInterstitialDelegate {
             self.playRecord(sender: button)
         }
         switchControlTextField.text = ""
+    }
+    
+    //チュートリアル
+    func showSpot(){
+            present(self.spotlightVC, animated: true){
+                self.spotlightVC.spotlightView.appear(Spotlight.RoundedRect(center: self.cardCreateField.center, size: self.cardCreateField.frame.size, cornerRadius: 20.0))
+            }
+            self.spotlightVC.updateLabel(text: "ボタンを押すと、録音した声が流れるよ！", x: self.cardCreateField.center.x, y: self.cardCreateField.frame.origin.y - 20.0)
+    }
+    
+    @objc func spotTap(){
+        self.spotlightVC.dismiss(animated: true, completion: nil)
+                    UserDefaults.standard.set(true, forKey: Constants.recordTutorialKey)
+
+    }
+    
+    func spotlightViewControllerTapped(_ viewController: SpotlightViewController, isInsideSpotlight: Bool) {
+        self.spotlightVC.dismiss(animated: true, completion: nil)
+        UserDefaults.standard.set(true, forKey: Constants.resultTutorialKey)
     }
     
     

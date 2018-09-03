@@ -18,7 +18,7 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet weak var searchBar: UISearchBar!
     
     let realm = try! Realm()
-    var cardArray = try! Realm().objects(Card.self)
+    var cardArray = try! Realm().objects(Card.self).sorted(byKeyPath: "id", ascending: true)
     
     var searchCount = 0
     
@@ -66,21 +66,21 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func search(){
         if searchCount == 0 && searchBar.text != ""{
-            cardArray = realm.objects(Card.self).filter("word contains '\(searchBar.text!)'")
+            cardArray = realm.objects(Card.self).filter("word contains '\(searchBar.text!)'").sorted(byKeyPath: "id", ascending: true)
         }else if 1...5 ~= searchCount && searchBar.text == ""{
-            cardArray = realm.objects(Card.self).filter("group = \(searchCount)")
+            cardArray = realm.objects(Card.self).filter("group = \(searchCount)").sorted(byKeyPath: "id", ascending: true)
         }else if 1...5 ~= searchCount && searchBar.text != ""{
-            cardArray = realm.objects(Card.self).filter("group = \(searchCount) and word contains '\(searchBar.text!)'")
+            cardArray = realm.objects(Card.self).filter("group = \(searchCount) and word contains '\(searchBar.text!)'").sorted(byKeyPath: "id", ascending: true)
         }else if searchCount == 6 && searchBar.text == ""{
-            cardArray = realm.objects(Card.self).filter("originalDeck1 = true")
+            cardArray = realm.objects(Card.self).filter("originalDeck1 = true").sorted(byKeyPath: "id", ascending: true)
         }else if searchCount == 6 && searchBar.text != ""{
-            cardArray = realm.objects(Card.self).filter("originalDeck1 = true and word contains '\(searchBar.text!)'")
+            cardArray = realm.objects(Card.self).filter("originalDeck1 = true and word contains '\(searchBar.text!)'").sorted(byKeyPath: "id", ascending: true)
         }else if searchCount == 7 && searchBar.text == ""{
-            cardArray = realm.objects(Card.self).filter("originalDeck2 = true")
+            cardArray = realm.objects(Card.self).filter("originalDeck2 = true").sorted(byKeyPath: "id", ascending: true)
         }else if searchCount == 7 && searchBar.text != ""{
-            cardArray = realm.objects(Card.self).filter("originalDeck2 = true and word contains '\(searchBar.text!)'")
+            cardArray = realm.objects(Card.self).filter("originalDeck2 = true and word contains '\(searchBar.text!)'").sorted(byKeyPath: "id", ascending: true)
         }else{
-            cardArray = realm.objects(Card.self)
+            cardArray = realm.objects(Card.self).sorted(byKeyPath: "id", ascending: true)
         }
         cardCollectionView.reloadData()
     }

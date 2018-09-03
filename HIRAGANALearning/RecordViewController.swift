@@ -9,8 +9,9 @@
 import UIKit
 import AVFoundation
 import SVProgressHUD
+import Gecco
 
-class RecordViewController: UIViewController {
+class RecordViewController: UIViewController, SpotlightViewControllerDelegate {
     
     
     @IBOutlet weak var answerLabel: UILabel!
@@ -47,6 +48,10 @@ class RecordViewController: UIViewController {
     var cursorSizeArray: [CGSize] = []
     var cursorPositionArray: [CGPoint] = []
     
+    private var spotlightVC: AnnotationViewController!
+    var spotIndex = 0
+    var spotTimer: Timer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         answerLabel.text = answerWord
@@ -71,7 +76,40 @@ class RecordViewController: UIViewController {
         }
         recordButtonOutlet.setImage(UIImage(named: "Stop"), for: .selected)
         
-       switchController()
+        switchController()
+        
+        spotlightVC = AnnotationViewController()
+        spotlightVC.delegate = self
+        
+        recordButtonSetting()
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !userDefaults.bool(forKey: Constants.recordTutorialKey){
+            showSpot()
+            if switchControl > 0 {
+                spotTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(spotTap), userInfo: nil, repeats: true)
+            }
+        }
+    }
+    
+    func recordButtonSetting(){
+        let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.audio)
+        
+        switch (status) {
+        case .denied:
+            recordButtonOutlet.isEnabled = false
+            let deniedLabel: UILabel = UILabel()
+            deniedLabel.text = "マイクの使用許可が必要です"
+            deniedLabel.sizeToFit()
+            deniedLabel.textColor = UIColor.red
+            deniedLabel.center = recordButtonOutlet.center
+            self.view.addSubview(deniedLabel)
+            break;
+        default:
+            recordButtonOutlet.isEnabled = true
+        }
     }
     
     func setURL() -> URL {
@@ -82,15 +120,19 @@ class RecordViewController: UIViewController {
     
     @IBAction func recordButton(_ sender: UIButton) {
         if sender.isSelected{
+            sender.isSelected = false
             timer.invalidate()
             audioRecorder?.stop()
-            sender.isSelected = false
         }else{
             progressView.progress = 0
             sender.isSelected = true
-             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            sender.isEnabled = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(self.progressBar), userInfo: nil, repeats: true)
                 self.audioRecorder?.record()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+                    sender.isEnabled = true
+                }
             }
         }
     }
@@ -106,15 +148,18 @@ class RecordViewController: UIViewController {
     
 
     @IBAction func nextButton(_ sender: Any) {
-        if recordButtonOutlet.isSelected{
-            timer.invalidate()
-            audioRecorder?.stop()
-            recordButtonOutlet.isSelected = false
-        }
-        if toResultBool{
-            self.performSegue(withIdentifier: "toResult", sender: nil)
-        }else{
-            self.performSegue(withIdentifier: "unwindToGame", sender: nil)
+        if nextButtonOutlet.isEnabled{
+            if recordButtonOutlet.isSelected{
+                timer.invalidate()
+                audioRecorder?.stop()
+                recordButtonOutlet.isSelected = false
+            }
+            nextButtonOutlet.isEnabled = false
+                if self.toResultBool{
+                    self.performSegue(withIdentifier: "toResult", sender: nil)
+                }else{
+                    self.performSegue(withIdentifier: "toGame", sender: nil)
+            }
         }
     }
     
@@ -122,7 +167,7 @@ class RecordViewController: UIViewController {
         if switchControl == 1{
             singleSwitchTimer.invalidate()
         }
-        if segue.identifier == "unwindToGame"{
+        if segue.identifier == "toGame"{
         let gameVC: GameViewController = segue.destination as! GameViewController
         gameVC.recordArray.append(self.url)
         gameVC.correctArray.append(self.correctImage)
@@ -133,6 +178,8 @@ class RecordViewController: UIViewController {
             resultVC.recordArray = self.recordArray
             resultVC.correctArray = self.correctArray
             resultVC.correctCount = self.correctCount
+            print(correctArray.count)
+            print(recordArray.count)
         }
     }
     
@@ -158,7 +205,6 @@ class RecordViewController: UIViewController {
             cursorTag = 0
             self.view.addSubview(cursor)
             self.view.insertSubview(cursor, belowSubview: recordButtonOutlet)
-            
         }
         if switchControl == 1{
             timeInterval = userDefaults.integer(forKey: Constants.cursorSpeedKey)
@@ -193,11 +239,17 @@ class RecordViewController: UIViewController {
         if (key?.contains(decisionSwitch))!{
             if cursorTag == 0 {
                 if recordButtonOutlet.isSelected{
+                    switchControlTextField.resignFirstResponder()
                     self.singleSwitchTimer = Timer.scheduledTimer(timeInterval: TimeInterval(self.timeInterval), target: self, selector: #selector(self.cursorMove), userInfo: nil, repeats: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.switchControlTextField.becomeFirstResponder()
+                    }
                 }else{
-                    singleSwitchTimer.invalidate()
+                    if recordButtonOutlet.isEnabled == true{
+                        self.recordButton(recordButtonOutlet)
+                        singleSwitchTimer.invalidate()
+                    }
                 }
-                self.recordButton(recordButtonOutlet)
             }else{
                 self.nextButton(nextButtonOutlet)
             }
@@ -216,12 +268,55 @@ class RecordViewController: UIViewController {
         }
         if (switchControlTextField.text?.lowercased().contains(decisionSwitch))! {
             if cursorTag == 0{
-                self.recordButton(recordButtonOutlet)
+                if recordButtonOutlet.isSelected{
+                    switchControlTextField.resignFirstResponder()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.switchControlTextField.becomeFirstResponder()
+                    }
+                }else{
+                if recordButtonOutlet.isEnabled == true{
+                    self.recordButton(recordButtonOutlet)
+                }
+                }
             }else{
                 self.nextButton(nextButtonOutlet)
             }
         }
         switchControlTextField.text = ""
+    }
+    
+    
+    //チュートリアル
+    func showSpot(){
+        let spot = self.spotlightVC.spotlightView
+        switch spotIndex {
+        case 0:
+            present(self.spotlightVC, animated: true){
+                spot.appear(Spotlight.Oval(center: self.recordButtonOutlet.center, diameter: self.recordButtonOutlet.frame.width))
+            }
+            self.spotlightVC.updateLabel(text: "録音のスタート・ストップができます", x: self.recordButtonOutlet.center.x, y: self.recordButtonOutlet.frame.origin.y - 20.0)
+        case 1:
+            spot.move(Spotlight.RoundedRect(center: self.nextButtonOutlet.center, size: self.nextButtonOutlet.frame.size, cornerRadius: 20.0))
+            self.spotlightVC.updateLabel(text: "次に進む時は\nここを押してね", x: self.nextButtonOutlet.center.x, y: self.nextButtonOutlet.frame.origin.y - 20.0)
+        case 2:
+            self.spotlightVC.dismiss(animated: true, completion: nil)
+            UserDefaults.standard.set(true, forKey: Constants.recordTutorialKey)
+        default:
+            break
+        }
+    }
+    
+    @objc func spotTap(){
+        spotIndex += 1
+        showSpot()
+        if spotIndex == 2{
+            spotTimer.invalidate()
+        }
+    }
+    
+    func spotlightViewControllerTapped(_ viewController: SpotlightViewController, isInsideSpotlight: Bool) {
+        spotIndex += 1
+        showSpot()
     }
     
     override func didReceiveMemoryWarning() {

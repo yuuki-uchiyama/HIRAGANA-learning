@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Walkthrough View Controller-->
+        <scene sceneID="CGb-Pc-NVp">
+            <objects>
+                <viewController storyboardIdentifier="TOP" id="XCA-fW-O61" customClass="BWWalkthroughViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ApG-fs-hpg">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="bcq-yL-3lb">
+                                <rect key="frame" x="412" y="711" width="200" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bcq-yL-3lb" secondAttribute="height" multiplier="200:37" id="f3F-lw-vTt"/>
+                                </constraints>
+                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="currentPageIndicatorTintColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIv-el-dz8">
+                                <rect key="frame" x="622" y="711" width="50" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wIv-el-dz8" secondAttribute="height" multiplier="50:37" id="Hfg-O7-PHe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="25"/>
+                                <state key="normal" title="次へ"/>
+                                <connections>
+                                    <action selector="nextPage" destination="XCA-fW-O61" eventType="touchUpInside" id="SX3-1h-zrX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veB-2E-hGl">
+                                <rect key="frame" x="900" y="20" width="104" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="veB-2E-hGl" secondAttribute="height" multiplier="22:15" id="fax-YF-Xas"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="50"/>
+                                <state key="normal" title="Skip"/>
+                                <connections>
+                                    <action selector="close:" destination="XCA-fW-O61" eventType="touchUpInside" id="yEV-0i-MAW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7E-UU-yhI">
+                                <rect key="frame" x="352" y="711" width="50" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="T7E-UU-yhI" secondAttribute="height" multiplier="50:37" id="ZK2-IS-va5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="25"/>
+                                <state key="normal" title="前へ"/>
+                                <connections>
+                                    <action selector="prevPage" destination="XCA-fW-O61" eventType="touchUpInside" id="sLE-pf-Wjh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wIv-el-dz8" firstAttribute="leading" secondItem="bcq-yL-3lb" secondAttribute="trailing" constant="10" id="1rb-db-cgH"/>
+                            <constraint firstItem="bcq-yL-3lb" firstAttribute="leading" secondItem="T7E-UU-yhI" secondAttribute="trailing" constant="10" id="3Dh-H2-Ebd"/>
+                            <constraint firstItem="bcq-yL-3lb" firstAttribute="centerY" secondItem="T7E-UU-yhI" secondAttribute="centerY" id="AYk-2a-BlI"/>
+                            <constraint firstItem="aNN-NL-v3K" firstAttribute="trailing" secondItem="veB-2E-hGl" secondAttribute="trailing" constant="20" id="Zzj-yo-sHW"/>
+                            <constraint firstItem="aNN-NL-v3K" firstAttribute="bottom" secondItem="bcq-yL-3lb" secondAttribute="bottom" constant="20" id="fg2-5L-5Zl"/>
+                            <constraint firstItem="wIv-el-dz8" firstAttribute="centerY" secondItem="T7E-UU-yhI" secondAttribute="centerY" id="np1-gc-xCN"/>
+                            <constraint firstItem="veB-2E-hGl" firstAttribute="top" secondItem="aNN-NL-v3K" secondAttribute="top" id="tzT-gr-IS8"/>
+                            <constraint firstItem="bcq-yL-3lb" firstAttribute="centerX" secondItem="ApG-fs-hpg" secondAttribute="centerX" id="yoX-65-7VB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="aNN-NL-v3K"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="veB-2E-hGl" id="dDu-uf-lES"/>
+                        <outlet property="nextButton" destination="wIv-el-dz8" id="0jL-T6-rQ5"/>
+                        <outlet property="pageControl" destination="bcq-yL-3lb" id="NnO-wn-S3D"/>
+                        <outlet property="prevButton" destination="T7E-UU-yhI" id="OJI-uL-CVy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nQp-6B-E3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-308.203125" y="-580.46875"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="1eg-Vk-cZb">
+            <objects>
+                <viewController storyboardIdentifier="WT1" id="pG4-2b-INr" customClass="BWWalkthroughPageViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mab-Be-t3u">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="POB" translatesAutoresizingMaskIntoConstraints="NO" id="6Su-OO-bx4">
+                                <rect key="frame" x="153" y="20" width="719" height="547"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="このアプリは、幼児、障害児を対象としたひらがな学習アプリです" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRf-8R-R0B">
+                                <rect key="frame" x="20" y="633" width="984" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ひらがなわかるもん！へようこそ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tb-hq-RAO">
+                                <rect key="frame" x="139" y="575" width="747" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eKs-gB-LSl"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W4c-V8-69P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-308.203125" y="137.5"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="ic3-Zm-9Nf">
+            <objects>
+                <viewController storyboardIdentifier="WT2" id="295-5h-ybg" customClass="BWWalkthroughPageViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zyT-b9-Skn">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="POB2" translatesAutoresizingMaskIntoConstraints="NO" id="xkA-fF-sgY">
+                                <rect key="frame" x="153" y="20" width="719" height="547"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpM-mJ-dMg">
+                                <rect key="frame" x="20" y="566" width="984" height="165"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <string key="text">画面中央をタップすると、問題のひらがな単語が現れます。
+正解だと思うものを上の枠までドラッグしてみましょう！
+正解の枠には、ヒントが徐々に現れてきます</string>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="MBL-Wi-6zQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4KY-cQ-d6C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-308.203125" y="825.78125"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="Us2-9d-neF">
+            <objects>
+                <viewController storyboardIdentifier="WT3" id="FmK-XY-uZD" customClass="BWWalkthroughPageViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WIB-Dt-URR">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="POB3" translatesAutoresizingMaskIntoConstraints="NO" id="ws3-tn-eLp">
+                                <rect key="frame" x="153" y="20" width="719" height="547"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="お子さんが好きな物やキャラクターなどを使って、オリジナルのカードを作ることができます" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEv-Sy-YVQ">
+                                <rect key="frame" x="20" y="583" width="984" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TyC-md-BuV"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jkE-cR-5qC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-308.203125" y="1534.375"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="uyg-Fn-MsE">
+            <objects>
+                <viewController storyboardIdentifier="WT4" id="Fg6-JO-r4x" customClass="BWWalkthroughPageViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LJ8-bE-gKm">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="POB4" translatesAutoresizingMaskIntoConstraints="NO" id="plY-IY-msZ">
+                                <rect key="frame" x="153" y="20" width="719" height="547"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="運動に障害のあるお子さん向けに、キーボードやスイッチを使った操作の設定が可能です" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixt-sC-Fh2">
+                                <rect key="frame" x="20" y="583" width="984" height="165"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="x3J-sI-wom"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gvO-mv-Irc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-308.203125" y="2250.78125"/>
+        </scene>
+        <!--Walkthrough Page View Controller-->
+        <scene sceneID="46t-lK-4Qp">
+            <objects>
+                <viewController storyboardIdentifier="WT5" id="09F-0h-rMf" customClass="BWWalkthroughPageViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MWj-LL-IKK">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="POB5" translatesAutoresizingMaskIntoConstraints="NO" id="uen-3d-ndD">
+                                <rect key="frame" x="153" y="20" width="719" height="547"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sV-cC-0AS">
+                                <rect key="frame" x="20" y="583" width="984" height="165"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <string key="text">設定するとゲーム画面にカーソルが現れます。
+カーソルを動かして、正解だと思う所で決定ボタンを押してみよう！</string>
+                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="VOd-eB-zeh"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Szh-fu-ZXF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-308.203125" y="2956.25"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="POB" width="2732" height="2048"/>
+        <image name="POB2" width="1024" height="768"/>
+        <image name="POB3" width="1024" height="768"/>
+        <image name="POB4" width="2732" height="2048"/>
+        <image name="POB5" width="1024" height="768"/>
+    </resources>
+</document>

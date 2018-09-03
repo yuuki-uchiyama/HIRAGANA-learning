@@ -13,6 +13,8 @@ import SlideMenuControllerSwift
 protocol choicesDelegate {
     func decreaseChoices()
     func increaseChoices()
+    func toHome()
+    func toChoiceLevel()
 }
 
 class RightViewController: UIViewController,  SlideMenuControllerDelegate{
@@ -85,11 +87,13 @@ class RightViewController: UIViewController,  SlideMenuControllerDelegate{
     }
     
     @IBAction func toHomeButton(_ sender: Any) {
+        self.delegate?.toHome()
         if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
             backAudioPlayer.play()
         }
     }
     @IBAction func toChoiceLevelButton(_ sender: Any) {
+        self.delegate?.toChoiceLevel()
         if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
             backAudioPlayer.play()
         }

@@ -34,7 +34,6 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
     var card : Card!
     let realm = try! Realm()
     
-    var buttonTapAudioPlayer: AVAudioPlayer!
     var backAudioPlayer: AVAudioPlayer!
     var importantAudioPlayer: AVAudioPlayer!
     var checkAudioPlayer: AVAudioPlayer!
@@ -66,10 +65,6 @@ class CreateCardViewController: UIViewController, UIImagePickerControllerDelegat
         
         setCard()
         
-        if let asset = NSDataAsset(name: "ButtonTap") {
-            buttonTapAudioPlayer = try! AVAudioPlayer(data: asset.data)
-            buttonTapAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)
-        }
         if let asset = NSDataAsset(name: "Back") {
             backAudioPlayer = try! AVAudioPlayer(data: asset.data)
             backAudioPlayer.volume = UserDefaults.standard.float(forKey: Constants.volumeKey)

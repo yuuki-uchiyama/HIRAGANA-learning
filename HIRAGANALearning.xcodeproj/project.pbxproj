@@ -14,6 +14,10 @@
 		8101407E2101C8EC00FC756A /* deckCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101407C2101C8EC00FC756A /* deckCollectionViewCell.swift */; };
 		8101407F2101C8EC00FC756A /* deckCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8101407D2101C8EC00FC756A /* deckCollectionViewCell.xib */; };
 		810140852101FBF800FC756A /* addDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810140842101FBF800FC756A /* addDeckViewController.swift */; };
+		810140A5210662D000FC756A /* CommunicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810140A4210662D000FC756A /* CommunicationViewController.swift */; };
+		810140A9210662E300FC756A /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810140A8210662E300FC756A /* ImportViewController.swift */; };
+		810140AB210662F200FC756A /* ChoiceExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810140AA210662F200FC756A /* ChoiceExportViewController.swift */; };
+		810140B421097F7C00FC756A /* WalkThrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 810140B321097F7C00FC756A /* WalkThrough.storyboard */; };
 		81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7EF20ED216D00B2894B /* SlideViewController.swift */; };
 		81D5B7F220ED2BC100B2894B /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D5B7F120ED2BC100B2894B /* RightViewController.swift */; };
 		81D5B7F420EF6EEF00B2894B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */; };
@@ -47,6 +51,10 @@
 		8101407C2101C8EC00FC756A /* deckCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deckCollectionViewCell.swift; sourceTree = "<group>"; };
 		8101407D2101C8EC00FC756A /* deckCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = deckCollectionViewCell.xib; sourceTree = "<group>"; };
 		810140842101FBF800FC756A /* addDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addDeckViewController.swift; sourceTree = "<group>"; };
+		810140A4210662D000FC756A /* CommunicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationViewController.swift; sourceTree = "<group>"; };
+		810140A8210662E300FC756A /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
+		810140AA210662F200FC756A /* ChoiceExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceExportViewController.swift; sourceTree = "<group>"; };
+		810140B321097F7C00FC756A /* WalkThrough.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WalkThrough.storyboard; sourceTree = "<group>"; };
 		81D5B7EF20ED216D00B2894B /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		81D5B7F120ED2BC100B2894B /* RightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
 		81D5B7F320EF6EEF00B2894B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -89,6 +97,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		810140AF21097AEF00FC756A /* SwitchControl */ = {
+			isa = PBXGroup;
+			children = (
+				81D5F05C20DC28D300D7A2D3 /* OperateViewController.swift */,
+				81D5F06220DC295500D7A2D3 /* SingleSwitchViewController.swift */,
+				81D5F06020DC292C00D7A2D3 /* MultipleSwitchesViewController.swift */,
+			);
+			path = SwitchControl;
+			sourceTree = "<group>";
+		};
+		810140B021097B2300FC756A /* CardEdit */ = {
+			isa = PBXGroup;
+			children = (
+				81D5F06420DC297B00D7A2D3 /* CardViewController.swift */,
+				81D5F06820DC29AB00D7A2D3 /* CreateCardViewController.swift */,
+				81D5F06A20DC29D200D7A2D3 /* EditCardViewController.swift */,
+				81DF5DAE20E4DA040099ED11 /* cardCollectionViewCell.swift */,
+				81DF5DAF20E4DA040099ED11 /* cardCollectionViewCell.xib */,
+			);
+			path = CardEdit;
+			sourceTree = "<group>";
+		};
+		810140B121097B6100FC756A /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				810140A4210662D000FC756A /* CommunicationViewController.swift */,
+				810140AA210662F200FC756A /* ChoiceExportViewController.swift */,
+				810140A8210662E300FC756A /* ImportViewController.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
 		81D5F03220DBA4E500D7A2D3 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +150,9 @@
 		81D5F03D20DBA4E500D7A2D3 /* HIRAGANALearning */ = {
 			isa = PBXGroup;
 			children = (
+				810140AF21097AEF00FC756A /* SwitchControl */,
+				810140B021097B2300FC756A /* CardEdit */,
+				810140B121097B6100FC756A /* Bluetooth */,
 				81D5F03E20DBA4E500D7A2D3 /* AppDelegate.swift */,
 				81D5F04020DBA4E500D7A2D3 /* ViewController.swift */,
 				81D5F05020DBBF0000D7A2D3 /* ChoiceLevelViewController.swift */,
@@ -120,14 +163,6 @@
 				8101407420FDF80900FC756A /* RecordViewController.swift */,
 				81D5F05820DBBFE900D7A2D3 /* ResultViewController.swift */,
 				81D5F05A20DC28AF00D7A2D3 /* SettingViewController.swift */,
-				81D5F05C20DC28D300D7A2D3 /* OperateViewController.swift */,
-				81D5F06220DC295500D7A2D3 /* SingleSwitchViewController.swift */,
-				81D5F06020DC292C00D7A2D3 /* MultipleSwitchesViewController.swift */,
-				81D5F06420DC297B00D7A2D3 /* CardViewController.swift */,
-				81D5F06820DC29AB00D7A2D3 /* CreateCardViewController.swift */,
-				81D5F06A20DC29D200D7A2D3 /* EditCardViewController.swift */,
-				81DF5DAE20E4DA040099ED11 /* cardCollectionViewCell.swift */,
-				81DF5DAF20E4DA040099ED11 /* cardCollectionViewCell.xib */,
 				8101407A2101BF7200FC756A /* EditDeckViewController.swift */,
 				8101407C2101C8EC00FC756A /* deckCollectionViewCell.swift */,
 				8101407D2101C8EC00FC756A /* deckCollectionViewCell.xib */,
@@ -137,6 +172,7 @@
 				81D5B7F520F16B0F00B2894B /* UserDefaults.swift */,
 				81D5F04520DBA4E800D7A2D3 /* Assets.xcassets */,
 				81D5F04720DBA4E800D7A2D3 /* LaunchScreen.storyboard */,
+				810140B321097F7C00FC756A /* WalkThrough.storyboard */,
 				81D5F04A20DBA4E800D7A2D3 /* Info.plist */,
 				810140782100C59900FC756A /* GoogleService-Info.plist */,
 			);
@@ -226,6 +262,7 @@
 				81D5F04920DBA4E800D7A2D3 /* LaunchScreen.storyboard in Resources */,
 				810140792100C59900FC756A /* GoogleService-Info.plist in Resources */,
 				81D5F04620DBA4E800D7A2D3 /* Assets.xcassets in Resources */,
+				810140B421097F7C00FC756A /* WalkThrough.storyboard in Resources */,
 				81D5F04420DBA4E500D7A2D3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,23 +295,29 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HIRAGANALearning/Pods-HIRAGANALearning-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BWWalkthrough/BWWalkthrough.framework",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/Gecco/Gecco.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/paper-onboarding/paper_onboarding.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BWWalkthrough.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gecco.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/paper_onboarding.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -296,6 +339,7 @@
 				81D5F06B20DC29D200D7A2D3 /* EditCardViewController.swift in Sources */,
 				8101407520FDF80900FC756A /* RecordViewController.swift in Sources */,
 				8101407B2101BF7300FC756A /* EditDeckViewController.swift in Sources */,
+				810140AB210662F200FC756A /* ChoiceExportViewController.swift in Sources */,
 				81D5F05120DBBF0000D7A2D3 /* ChoiceLevelViewController.swift in Sources */,
 				81D5F06920DC29AB00D7A2D3 /* CreateCardViewController.swift in Sources */,
 				81DF5DAD20E4BC490099ED11 /* Card.swift in Sources */,
@@ -305,9 +349,11 @@
 				81D5F05D20DC28D300D7A2D3 /* OperateViewController.swift in Sources */,
 				810140852101FBF800FC756A /* addDeckViewController.swift in Sources */,
 				81D5F03F20DBA4E500D7A2D3 /* AppDelegate.swift in Sources */,
+				810140A5210662D000FC756A /* CommunicationViewController.swift in Sources */,
 				81D5F06520DC297B00D7A2D3 /* CardViewController.swift in Sources */,
 				81D5B7F020ED216D00B2894B /* SlideViewController.swift in Sources */,
 				81D5F06320DC295500D7A2D3 /* SingleSwitchViewController.swift in Sources */,
+				810140A9210662E300FC756A /* ImportViewController.swift in Sources */,
 				81D5F05520DBBF9400D7A2D3 /* CorrectViewController.swift in Sources */,
 				81D5B7F220ED2BC100B2894B /* RightViewController.swift in Sources */,
 			);

@@ -9,8 +9,12 @@
 import UIKit
 import RealmSwift
 import AVFoundation
+import Gecco
 
-class ChoiceLevelViewController: UIViewController {
+class ChoiceLevelViewController: UIViewController, SpotlightViewControllerDelegate {
+    
+    private var spotlightVC: AnnotationViewController!
+    var spotIndex = 0
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var cardButton: UIButton!
@@ -23,6 +27,7 @@ class ChoiceLevelViewController: UIViewController {
     @IBOutlet weak var deck1Button: UIButton!
     @IBOutlet weak var deck2Button: UIButton!
     @IBOutlet weak var hintSpeadSlider: UISlider!
+    @IBOutlet weak var buttonView: UIView!
     
     let realm = try! Realm()
     
@@ -32,6 +37,9 @@ class ChoiceLevelViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        spotlightVC = AnnotationViewController()
+        spotlightVC.delegate = self
         
         backButton.layer.cornerRadius = 40.0
         cardButton.layer.cornerRadius = 40.0
@@ -45,8 +53,8 @@ class ChoiceLevelViewController: UIViewController {
         deck2Button.layer.cornerRadius = 40.0
         
         hintSpeadSlider.minimumValue = 0.0
-        hintSpeadSlider.maximumValue = 3.0
-        UserDefaults.standard.register(defaults: [Constants.hintSpeadKey: 50.0])
+        hintSpeadSlider.maximumValue = 1.0
+        UserDefaults.standard.register(defaults: [Constants.hintSpeadKey: 0.5])
         hintSpeadSlider.value = UserDefaults.standard.float(forKey: Constants.hintSpeadKey)
         
         if let asset = NSDataAsset(name: "ButtonTap") {
@@ -62,6 +70,7 @@ class ChoiceLevelViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         for i in 1 ... 10{
             let paths = FileManager.default.temporaryDirectory
             let url = paths.appendingPathComponent(String(i))
@@ -69,6 +78,12 @@ class ChoiceLevelViewController: UIViewController {
                 try FileManager.default.removeItem(at: url)
             } catch {
             }
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !UserDefaults.standard.bool(forKey: Constants.choiceLebelTutorialKey){
+        showSpot()
         }
     }
 
@@ -143,6 +158,33 @@ class ChoiceLevelViewController: UIViewController {
         buttonTapAudioPlayer.play()
         }
     }
+    
+    func showSpot(){
+        let spot = self.spotlightVC.spotlightView
+        switch spotIndex {
+        case 0:
+            present(self.spotlightVC, animated: true){
+                spot.appear(Spotlight.RoundedRect(center: self.hintSpeadSlider.center, size: self.hintSpeadSlider.frame.size, cornerRadius: 40.0))
+            }
+            self.spotlightVC.updateLabel(text: "ヒントが出るスピードを調整できます", x: self.hintSpeadSlider.center.x, y: self.hintSpeadSlider.frame.origin.y - 20.0)
+        case 1:
+            spot.move(Spotlight.RoundedRect(center: self.buttonView.center, size: self.buttonView.frame.size, cornerRadius: 100.0))
+            self.spotlightVC.updateLabel(text: "すきな難易度のボタンを押したらスタート！", x: self.buttonView.center.x, y: self.buttonView.frame.origin.y - 20.0)
+        case 2:
+            self.spotlightVC.dismiss(animated: true, completion: nil)
+            UserDefaults.standard.set(true, forKey: Constants.choiceLebelTutorialKey)
+        default:
+            break
+        }
+    }
+    
+    func spotlightViewControllerTapped(_ viewController: SpotlightViewController, isInsideSpotlight: Bool) {
+        spotIndex += 1
+        showSpot()
+    }
+    
+    
+    
     
 
     /*

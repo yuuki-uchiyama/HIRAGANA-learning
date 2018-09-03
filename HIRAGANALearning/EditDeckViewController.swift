@@ -23,7 +23,7 @@ class EditDeckViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet weak var addButton: UIButton!
     
     let realm = try! Realm()
-    var cardArray = try! Realm().objects(Card.self).filter("originalDeck1 = true")
+    var cardArray = try! Realm().objects(Card.self).filter("originalDeck1 = true").sorted(byKeyPath: "id", ascending: true)
     var deleteArray: [Int] = []
     var originalDeck = "originalDeck1"
     
@@ -74,6 +74,11 @@ class EditDeckViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        deckSorted()
+    }
+    
+    func deckSorted(){
+        cardArray = realm.objects(Card.self).filter("\(originalDeck) = true").sorted(byKeyPath: "id", ascending: true)
         cardCollectionView.reloadData()
     }
     
@@ -111,13 +116,26 @@ class EditDeckViewController: UIViewController, UICollectionViewDataSource, UICo
             deleteArray.append(cardId)
             sender.isSelected = true
         }
-        print(deleteArray)
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.checkAudioPlayer.currentTime = 0
+            self.checkAudioPlayer.play()
+        }
     }
     @IBAction func deleteButton(_ sender: Any) {
         if deleteArray == []{
             SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showError(withStatus: "カードが選択されていません")
         }else{
+            let alertController = UIAlertController(title: "カードをデッキから削除しますか？", message: "カードデータ自体は保持されます", preferredStyle: .alert)
+            let OK = UIAlertAction(title: "OK", style: .destructive, handler:deleteDeck)
+            let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
+            alertController.addAction(OK)
+            alertController.addAction(cancel)
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func deleteDeck(alert: UIAlertAction!){
             for addId in deleteArray{
                 let deleteCard = realm.objects(Card.self).filter("id == \(addId)")
                 try! realm.write {
@@ -127,31 +145,57 @@ class EditDeckViewController: UIViewController, UICollectionViewDataSource, UICo
             }
             SVProgressHUD.setMinimumDismissTimeInterval(0)
             SVProgressHUD.showSuccess(withStatus: "カードをデッキから消去しました！")
-            cardArray = realm.objects(Card.self).filter("\(originalDeck) = true")
-            cardCollectionView.reloadData()
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.importantAudioPlayer.play()
         }
-    }
+            cardArray = realm.objects(Card.self).filter("\(originalDeck) = true").sorted(byKeyPath: "id", ascending: true)
+            deckSorted()
+        }
     
     @IBAction func deck1Button(_ sender: Any) {
         originalDeck = "originalDeck1"
-        cardArray = realm.objects(Card.self).filter("originalDeck1 = true")
+        deckSorted()
         deleteArray = []
-        cardCollectionView.reloadData()
         deck1Button.alpha = 1.0
         deck2Button.alpha = 0.5
         deckLabel.text = "オリジナルデッキ1"
         deckLabel.backgroundColor = deck1Button.backgroundColor
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.checkAudioPlayer.currentTime = 0
+            self.checkAudioPlayer.play()
+        }
     }
     
     @IBAction func deck2Button(_ sender: Any) {
         originalDeck = "originalDeck2"
-        cardArray = realm.objects(Card.self).filter("originalDeck2 = true")
+        deckSorted()
         deleteArray = []
-        cardCollectionView.reloadData()
         deck1Button.alpha = 0.5
         deck2Button.alpha = 1.0
         deckLabel.text = "オリジナルデッキ2"
         deckLabel.backgroundColor = deck2Button.backgroundColor
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.checkAudioPlayer.currentTime = 0
+            self.checkAudioPlayer.play()
+        }
+    }
+    
+    @IBAction func toHomeButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.backAudioPlayer.play()
+        }
+    }
+    
+    @IBAction func cancelButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.backAudioPlayer.play()
+        }
+    }
+    
+    @IBAction func addDeckButton(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: Constants.tapSoundKey) == false{
+            self.buttonTapAudioPlayer.play()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -162,7 +206,6 @@ class EditDeckViewController: UIViewController, UICollectionViewDataSource, UICo
             addDeckVC.labelText = self.deckLabel.text
         }
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
